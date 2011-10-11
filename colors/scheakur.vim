@@ -7,7 +7,7 @@ endif
 let g:colors_name = 'scheakur'
 
 " base colors and attributes
-let s:base_args = ['#2e2e2e', '#f8f8ed', 'none']
+let s:base_args = ['#2e2e2e', '#f2f2e7', 'none']
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -172,7 +172,7 @@ call s:hi('PmenuThumb', '$hilite')
 call s:hi('Comment', '#2e8b57', '#ddf1dd')
 call s:hi('Comment', '#316745', '#ddf1dd')
 
-call s:hi('Constant', '#dd8822')
+call s:hi('Constant', '#aa6622')
 call s:hi('Number', '#59823e')
 call s:hi('Identifier', '#3a9a8d')
 call s:hi('Statement', '#1177dd', '', s:base)
