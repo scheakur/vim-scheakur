@@ -193,10 +193,6 @@ call s:hi('javaScriptDocType', '@Type', '@Comment')
 call s:hi('javaScriptDocTypeNoParam', '@Type', '@Comment')
 call s:hi('javaScriptDocTags', '@Special', '@Comment')
 call s:hi('javaScriptDocSeeTag', '@Function', '@Comment')
-
-" VimFiler
-hi def link VimFilerCurrentDirectory Statement
-
 " }}}
 
 " Highlight!
