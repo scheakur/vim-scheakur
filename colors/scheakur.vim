@@ -172,6 +172,7 @@ call s:hi('PmenuSel', s:base, '$hilite')
 call s:hi('PmenuSbar', '', '@Pmenu')
 call s:hi('PmenuThumb', '$hilite')
 call s:hi('Comment', '#04530d', '#ddf1dd')
+call s:hi('ColorColumn', '', '#dfd6d1')
 
 call s:hi('Constant', '#a25a09')
 call s:hi('Number', '#3d621e')
