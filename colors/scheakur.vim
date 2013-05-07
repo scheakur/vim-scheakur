@@ -192,11 +192,11 @@ call s:hi('Error', '#d1160b', '#ffe3e5')
 call s:hi('Underlined', '#2358ba')
 
 " for JavaScript
-call s:hi('javaScriptDocParam', '@Statement', '@Comment')
-call s:hi('javaScriptDocType', '@Type', '@Comment')
-call s:hi('javaScriptDocTypeNoParam', '@Type', '@Comment')
-call s:hi('javaScriptDocTags', '@Special', '@Comment')
-call s:hi('javaScriptDocSeeTag', '@Function', '@Comment')
+call s:hi('jsDocParam', '@Statement', '@Comment')
+call s:hi('jsDocType', '@Type', '@Comment')
+call s:hi('jsDocTypeNoParam', '@Type', '@Comment')
+call s:hi('jsDocTags', '@Special', '@Comment')
+call s:hi('jsDocSeeTag', '@Function', '@Comment')
 " }}}
 
 " Highlight!
