@@ -191,6 +191,8 @@ call s:hi('Ignore', '#666666')
 call s:hi('Todo', '#4d4214', '#fdfec9')
 call s:hi('Error', '#d1160b', '#ffe3e5')
 call s:hi('Underlined', '#2358ba')
+call s:hi('WildMenu', s:base, '$hilite')
+call s:hi('SignColumn', s:base, s:base)
 " }}}
 
 " Highlight!
