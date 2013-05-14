@@ -2,7 +2,7 @@
 
 highlight clear
 if exists('syntax_on')
-    syntax reset
+	syntax reset
 endif
 let g:colors_name = 'scheakur'
 
@@ -16,119 +16,119 @@ let s:colors = {}
 
 " functions for highlighting " {{{
 function! s:hi(group, ...) " fg, bg, attr
-    let s:props[a:group] = a:000
+	let s:props[a:group] = a:000
 endfunction
 
 function! s:color(name, color)
-    let s:colors[a:name] = a:color
+	let s:colors[a:name] = a:color
 endfunction
 
 function! s:do_highlight()
-    for group in keys(s:props)
-        let args = s:props[group]
-        let fg = s:get(args, 0, '')
-        let bg = s:get(args, 1, '')
-        let attr = s:get(args, 2, '')
-        if fg != ''
-            execute 'hi ' . group . ' ctermfg=' . s:tco(fg) . ' guifg=#' . fg
-        endif
-        if bg != ''
-            execute 'hi ' . group . ' ctermbg=' . s:tco(bg) . ' guibg=#' . bg
-        endif
-        if attr != ''
-            execute 'hi ' . group . ' term=' . attr . ' cterm=' . attr . ' gui=' . attr
-        endif
-    endfor
+	for group in keys(s:props)
+		let args = s:props[group]
+		let fg = s:get(args, 0, '')
+		let bg = s:get(args, 1, '')
+		let attr = s:get(args, 2, '')
+		if fg != ''
+			execute 'hi ' . group . ' ctermfg=' . s:tco(fg) . ' guifg=#' . fg
+		endif
+		if bg != ''
+			execute 'hi ' . group . ' ctermbg=' . s:tco(bg) . ' guibg=#' . bg
+		endif
+		if attr != ''
+			execute 'hi ' . group . ' term=' . attr . ' cterm=' . attr . ' gui=' . attr
+		endif
+	endfor
 endfunction
 
 function! s:get(args, index, default, ...)
-    let val = s:get_val(a:args, a:index, a:default)
-    if val == ''
-        return val
-    endif
-    " rgb color
-    if val =~ '^#[a-fA-F0-9]\{6\}'
-        return strpart(val, 1)
-    endif
-    " Starting with '@' means a syntax group reference
-    if val =~ '^@'
-        let val = strpart(val, 1)
-        let props = (a:0 > 0) ? a:1 : copy(s:props)
-        let new_args = get(props, val, [])
-        if empty(new_args)
-            return ''
-        endif
-        call remove(props, val)
-        return s:get(new_args, a:index, a:default, props)
-    endif
-    " Starting with '@' means a color reference
-    if val =~ '^\$'
-        let val = strpart(val, 1)
-        let val = get(s:colors, val, '')
-        let new_args = copy(a:args)
-        let new_args[a:index] = val
-        if (a:0 > 0)
-            return s:get(new_args, a:index, a:default, a:1)
-        else
-            return s:get(new_args, a:index, a:default)
-        endif
-    endif
-    " attribute
-    return val
+	let val = s:get_val(a:args, a:index, a:default)
+	if val == ''
+		return val
+	endif
+	" rgb color
+	if val =~ '^#[a-fA-F0-9]\{6\}'
+		return strpart(val, 1)
+	endif
+	" Starting with '@' means a syntax group reference
+	if val =~ '^@'
+		let val = strpart(val, 1)
+		let props = (a:0 > 0) ? a:1 : copy(s:props)
+		let new_args = get(props, val, [])
+		if empty(new_args)
+			return ''
+		endif
+		call remove(props, val)
+		return s:get(new_args, a:index, a:default, props)
+	endif
+	" Starting with '@' means a color reference
+	if val =~ '^\$'
+		let val = strpart(val, 1)
+		let val = get(s:colors, val, '')
+		let new_args = copy(a:args)
+		let new_args[a:index] = val
+		if (a:0 > 0)
+			return s:get(new_args, a:index, a:default, a:1)
+		else
+			return s:get(new_args, a:index, a:default)
+		endif
+	endif
+	" attribute
+	return val
 endfunction
 
 function! s:get_val(args, index, default)
-    let val = get(a:args, a:index, a:default)
-    if val == s:base
-        return get(s:base_args, a:index, '')
-    endif
-    if val != ''
-        return val
-    endif
-    return a:default
+	let val = get(a:args, a:index, a:default)
+	if val == s:base
+		return get(s:base_args, a:index, '')
+	endif
+	if val != ''
+		return val
+	endif
+	return a:default
 endfunction
 
 " Terminal COlor
 function! s:tco(rgb)
-    let r = ('0x' . strpart(a:rgb, 0, 2)) + 0
-    let g = ('0x' . strpart(a:rgb, 2, 2)) + 0
-    let b = ('0x' . strpart(a:rgb, 4, 2)) + 0
-    let c = s:rgb2tco(r, g, b)
-    return c
+	let r = ('0x' . strpart(a:rgb, 0, 2)) + 0
+	let g = ('0x' . strpart(a:rgb, 2, 2)) + 0
+	let b = ('0x' . strpart(a:rgb, 4, 2)) + 0
+	let c = s:rgb2tco(r, g, b)
+	return c
 endfunction
 
 function! s:rgb2tco(r, g, b)
-    if s:rgb_is_gray(a:r, a:g, a:b)
-        return s:rgb2gray(a:r, a:g, a:b)
-    else
-        return s:rgb2color(a:r, a:g, a:b)
-    endif
+	if s:rgb_is_gray(a:r, a:g, a:b)
+		return s:rgb2gray(a:r, a:g, a:b)
+	else
+		return s:rgb2color(a:r, a:g, a:b)
+	endif
 endfunction
 
 function! s:rgb2color(r, g, b)
-    let r = float2nr(5.0 * a:r / 255.0 + 0.5)
-    let g = float2nr(5.0 * a:g / 255.0 + 0.5)
-    let b = float2nr(5.0 * a:b / 255.0 + 0.5)
-    let c = 16 + (r * 36) + (g * 6) + (b)
-    return c
+	let r = float2nr(5.0 * a:r / 255.0 + 0.5)
+	let g = float2nr(5.0 * a:g / 255.0 + 0.5)
+	let b = float2nr(5.0 * a:b / 255.0 + 0.5)
+	let c = 16 + (r * 36) + (g * 6) + (b)
+	return c
 endfunction
 
 function! s:rgb2gray(r, g, b)
-    let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 + 0.5)
-    let gray += 232
-    return gray
+	let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 + 0.5)
+	let gray += 232
+	return gray
 endfunction
 
 function! s:rgb_is_gray(r, g, b)
-    let r = a:r * a:r
-    let g = a:g * a:g
-    let b = a:b * a:b
-    let a = (r + g + b) / 3.0 " average
-    let t = 1500.0 " threshold
-    if (abs(a -r) < t && abs(a - g) < t && abs(a - b) < t)
-        return 1
-    endif
-    return 0
+	let r = a:r * a:r
+	let g = a:g * a:g
+	let b = a:b * a:b
+	let a = (r + g + b) / 3.0 " average
+	let t = 1500.0 " threshold
+	if (abs(a -r) < t && abs(a - g) < t && abs(a - b) < t)
+		return 1
+	endif
+	return 0
 endfunction
 " }}}
 
