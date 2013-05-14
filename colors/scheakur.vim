@@ -29,17 +29,34 @@ function! s:do_highlight()
 		let fg = s:get(args, 0, '')
 		let bg = s:get(args, 1, '')
 		let attr = s:get(args, 2, '')
-		if fg != ''
-			execute 'hi ' . group . ' ctermfg=' . s:tco(fg) . ' guifg=#' . fg
+
+		if attr == 'undercurl'
+			execute 'hi ' . group
+			\	. ' ctermfg=' . s:tco(fg)
+			\	. ' guisp=#' . fg
+			\	. ' cterm=underline gui=' . attr
+			call s:apply(group, 'bg', bg)
+			continue
 		endif
-		if bg != ''
-			execute 'hi ' . group . ' ctermbg=' . s:tco(bg) . ' guibg=#' . bg
-		endif
-		if attr != ''
-			execute 'hi ' . group . ' term=' . attr . ' cterm=' . attr . ' gui=' . attr
-		endif
+
+		call s:apply(group, 'fg', fg)
+		call s:apply(group, 'bg', bg)
+		call s:apply(group, '', attr)
 	endfor
 endfunction
+
+
+function! s:apply(group, key, val)
+	if empty(a:val)
+		return
+	endif
+	let term_val =  empty(a:key) ? a:val : s:tco(a:val)
+	let gui_val =  empty(a:key) ? a:val : ('#' . a:val)
+	execute 'hi ' . a:group
+	\	. ' cterm' . a:key . '=' . term_val
+	\	. ' gui' . a:key . '=' . gui_val
+endfunction
+
 
 function! s:get(args, index, default, ...)
 	let val = s:get_val(a:args, a:index, a:default)
@@ -193,6 +210,10 @@ call s:hi('Error', '#d1160b', '#ffe3e5')
 call s:hi('Underlined', '#2358ba')
 call s:hi('WildMenu', s:base, '$hilite')
 call s:hi('SignColumn', s:base, s:base)
+call s:hi('SpellBad', '@Error', '@Error', 'undercurl')
+call s:hi('SpellCap', '@String', '@Visual', 'undercurl')
+call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
+call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl')
 " }}}
 
 " Highlight!
