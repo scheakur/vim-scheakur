@@ -54,23 +54,23 @@ function! s:get(args, index, default, ...)
     if val =~ '^@'
         let val = strpart(val, 1)
         let props = (a:0 > 0) ? a:1 : copy(s:props)
-        let newArgs = get(props, val, [])
-        if empty(newArgs)
+        let new_args = get(props, val, [])
+        if empty(new_args)
             return ''
         endif
         call remove(props, val)
-        return s:get(newArgs, a:index, a:default, props)
+        return s:get(new_args, a:index, a:default, props)
     endif
     " Starting with '@' means a color reference
     if val =~ '^\$'
         let val = strpart(val, 1)
         let val = get(s:colors, val, '')
-        let newArgs = copy(a:args)
-        let newArgs[a:index] = val
+        let new_args = copy(a:args)
+        let new_args[a:index] = val
         if (a:0 > 0)
-            return s:get(newArgs, a:index, a:default, a:1)
+            return s:get(new_args, a:index, a:default, a:1)
         else
-            return s:get(newArgs, a:index, a:default)
+            return s:get(new_args, a:index, a:default)
         endif
     endif
     " attribute
