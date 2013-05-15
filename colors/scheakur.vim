@@ -153,30 +153,6 @@ endfunction
 call s:color('frame', '#4a4642')
 call s:color('hilite', '#f4b3c2')
 
-" colors
-let s:fg_black = '#2e2e2e'
-let s:bg_black = '#4a4642'
-let s:fg_red = '#b1160b'
-let s:bg_red = '#ffe3e5'
-let s:fg_green = '#04530d'
-let s:bg_green = '#d0ead0'
-let s:fg_yellow = '#a25a09'
-let s:bg_yellow = '#fdfec9'
-let s:fg_blue = '#0b3fad'
-let s:bg_blue = '#cce0ef'
-let s:fg_magenta = '#3d126e'
-let s:bg_magenta = '#e2d4fb'
-let s:fg_cyan = '#1e7b88'
-let s:bg_cyan = '#cfefe9'
-let s:fg_white = '#dcdcdc'
-let s:bg_white = '#fafaf7'
-let s:fg_gray = '#aabbcc'
-let s:bg_gray = '#7a7672'
-let s:fg_orange = '#bd3b09'
-let s:bg_orange = '#fed3af'
-let s:fg_pink = '#cb1265'
-let s:bg_pink = '#f4b3c2'
-
 
 " highlights " {{{
 call s:hi('Normal', s:base, s:base, s:base)
