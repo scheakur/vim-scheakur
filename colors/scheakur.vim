@@ -56,7 +56,9 @@ function! s:apply(group, key, val, term_val)
 	if empty(a:val)
 		return
 	endif
-	let term_val = !empty(a:term_val) ? a:term_val : empty(a:key) ? a:val : s:tco(a:val)
+	let term_val =
+	\	!empty(a:term_val) ? a:term_val :
+	\	empty(a:key) ? a:val :s:tco(a:val)
 	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
 	execute 'hi ' . a:group
 	\	. ' cterm' . a:key . '=' . term_val
