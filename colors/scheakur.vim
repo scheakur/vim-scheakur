@@ -18,6 +18,12 @@ function! s:hi(group, ...) " fg, bg, attr, term_fg, term_bg, term_attr
 	let s:props[a:group] = a:000
 endfunction
 
+function! s:copy(group, orig_group)
+	let orig = a:orig_group
+	call s:hi(a:group, orig, orig, orig, orig, orig, orig)
+endfunction
+
+
 function! s:do_highlight()
 	for group in keys(s:props)
 		let args = s:props[group]
@@ -143,7 +149,6 @@ endfunction
 
 " named colors
 let s:frame = '#4a4642'
-let s:hilite = '#f4b3c2'
 
 
 " highlights " {{{
@@ -160,10 +165,10 @@ call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
 call s:hi('ModeMsg', '#337ca3')
 call s:hi('MoreMsg', '#1e7b3d')
 call s:hi('WarningMsg', '#ea6042')
-call s:hi('ErrorMsg', '@Error', '@Error')
+call s:copy('ErrorMsg', '@Error')
 call s:hi('NonText', '#7878ba', '', s:base)
 call s:hi('Question', '#008080')
-call s:hi('IncSearch', s:base, s:hilite, 'none')
+call s:hi('IncSearch', s:base, '#f4b3c2', s:base, s:base, 218)
 call s:hi('Search', s:base, '#e9e7ac')
 call s:hi('SpecialKey', '#aabbcc')
 call s:hi('StatusLine', '#dcdcdc', s:frame, 'none')
@@ -175,9 +180,9 @@ call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
 call s:hi('TabLineSel', s:frame, '', s:base)
 call s:hi('Title', '@Special', '', s:base)
 call s:hi('Pmenu', s:base, '#f6e4e7', '', '', 231)
-call s:hi('PmenuSel', s:base, s:hilite)
+call s:copy('PmenuSel', '@IncSearch')
 call s:hi('PmenuSbar', '', '@Pmenu')
-call s:hi('PmenuThumb', s:hilite)
+call s:hi('PmenuThumb', '@PmenuSel')
 call s:hi('Comment', '#1e7b88', '')
 call s:hi('ColorColumn', '', '#dfd6d1')
 
@@ -194,19 +199,19 @@ call s:hi('Repeat', '@Identifier')
 call s:hi('Function', '#cb1265')
 call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
 call s:hi('Ignore', '#666666')
-call s:hi('Todo', '#4d4214', '#fdfec9')
-call s:hi('Error', '#d1160b', '#ffe3e5')
+call s:hi('Todo', '#4d4214', '#fdfec9', '', '', 229)
+call s:hi('Error', '#d1160b', '#ffe3e5', '', '', 223)
 call s:hi('Underlined', '#2358ba')
-call s:hi('WildMenu', s:base, s:hilite)
+call s:copy('WildMenu', '@IncSearch')
 call s:hi('SignColumn', s:base, '')
-call s:hi('SpellBad', '@Error', '@Error', 'undercurl')
+call s:hi('SpellBad', '@Error', '@Error', 'undercurl', '', '@Error')
 call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
 call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
-call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl')
+call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl', '', '@Todo')
 call s:hi('DiffAdd', s:base, '@SpellRare')
 call s:hi('DiffChange', s:base, '@SpellLocal')
 call s:hi('DiffDelete', s:base, '@SpellBad')
-call s:hi('DiffText', s:base, '@SpellCap')
+call s:hi('DiffText', s:base, '@SpellCap', '', '', '@Todo')
 " }}}
 
 " Highlight!
@@ -227,6 +232,5 @@ unlet s:base_args
 unlet s:base
 unlet s:props
 unlet s:frame
-unlet s:hilite
 " }}}
 
