@@ -12,15 +12,10 @@ let s:base_args = ['#2e2e2e', '#f2f2e7', 'none', 234, 254, 'none']
 let s:base = '_base_'
 " highlighting properties
 let s:props = {}
-let s:colors = {}
 
 " functions for highlighting " {{{
 function! s:hi(group, ...) " fg, bg, attr, term_fg, term_bg, term_attr
 	let s:props[a:group] = a:000
-endfunction
-
-function! s:color(name, color)
-	let s:colors[a:name] = a:color
 endfunction
 
 function! s:do_highlight()
@@ -231,7 +226,6 @@ delfunction s:rgb2color
 unlet s:base_args
 unlet s:base
 unlet s:props
-unlet s:colors
 unlet s:frame
 unlet s:hilite
 " }}}
