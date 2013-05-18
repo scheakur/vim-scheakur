@@ -7,7 +7,7 @@ endif
 let g:colors_name = 'scheakur'
 
 " base colors and attributes
-let s:base_args = ['#2e2e2e', '#f2f2e7', 'none', 234, 254, 'none']
+let s:base_args = ['#2e2e2e', '#f2f2e7', 'none', 234, 255, 'none']
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -188,7 +188,7 @@ function! s:set_highlight()
 	call s:copy('PmenuSel', '@IncSearch')
 	call s:hi('PmenuSbar', _, '@Pmenu')
 	call s:hi('PmenuThumb', '@PmenuSel')
-	call s:hi('Comment', '#1e7b88', _)
+	call s:hi('Comment', '#4e7b88', _)
 	call s:hi('ColorColumn', _, '#dfd6d1')
 
 	call s:hi('Constant', '#a25a09')
