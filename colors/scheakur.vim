@@ -78,18 +78,6 @@ function! s:get(args, index, default, ...)
 		call remove(props, val)
 		return s:get(new_args, a:index, a:default, props)
 	endif
-	" Starting with '$' means a color reference
-	if val =~ '^\$'
-		let val = strpart(val, 1)
-		let val = get(s:colors, val, '')
-		let new_args = copy(a:args)
-		let new_args[a:index] = val
-		if (a:0 > 0)
-			return s:get(new_args, a:index, a:default, a:1)
-		else
-			return s:get(new_args, a:index, a:default)
-		endif
-	endif
 	" attribute
 	return val
 endfunction
@@ -150,8 +138,8 @@ endfunction
 " }}}
 
 " named colors
-call s:color('frame', '#4a4642')
-call s:color('hilite', '#f4b3c2')
+let s:frame = '#4a4642'
+let s:hilite = '#f4b3c2'
 
 
 " highlights " {{{
@@ -161,10 +149,6 @@ call s:hi('CursorIM', '#fededa', '#47885e')
 call s:hi('CursorLine', '', '#fafaf7')
 call s:hi('CursorColumn', '', '@CursorLine')
 call s:hi('Directory', '#1177dd')
-call s:hi('DiffAdd', s:base, '#ddeedd')
-call s:hi('DiffChange', s:base, '#ffffcc')
-call s:hi('DiffDelete', s:base, '#ffdddd')
-call s:hi('DiffText', s:base, '#aaffaa')
 call s:hi('Folded', '#04530d', '#d0ead0')
 call s:hi('FoldColumn', '@Folded', '@Folded')
 call s:hi('LineNr', '#567686', '#e2e2d0')
@@ -175,46 +159,50 @@ call s:hi('WarningMsg', '#ea6042')
 call s:hi('ErrorMsg', '@Error', '@Error')
 call s:hi('NonText', '#7878ba', '', s:base)
 call s:hi('Question', '#008080')
-call s:hi('IncSearch', s:base, '$hilite', 'none')
+call s:hi('IncSearch', s:base, s:hilite, 'none')
 call s:hi('Search', s:base, '#e9e7ac')
 call s:hi('SpecialKey', '#aabbcc')
-call s:hi('StatusLine', '#dcdcdc', '$frame', 'none')
+call s:hi('StatusLine', '#dcdcdc', s:frame, 'none')
 call s:hi('StatusLineNC', '@StatusLine', '#7a7672', 'italic')
-call s:hi('VertSplit', '$frame', '$frame', 'none')
+call s:hi('VertSplit', s:frame, s:frame, 'none')
 call s:hi('Visual', '', '#cce0ef')
 call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
 call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
-call s:hi('TabLineSel', '$frame', s:base, s:base)
+call s:hi('TabLineSel', s:frame, s:base, s:base)
 call s:hi('Title', '@Special', '', s:base)
 call s:hi('Pmenu', s:base, '#f6e4e7')
-call s:hi('PmenuSel', s:base, '$hilite')
+call s:hi('PmenuSel', s:base, s:hilite)
 call s:hi('PmenuSbar', '', '@Pmenu')
-call s:hi('PmenuThumb', '$hilite')
+call s:hi('PmenuThumb', s:hilite)
 call s:hi('Comment', '#1e7b88', s:base)
 call s:hi('ColorColumn', '', '#dfd6d1')
 
 call s:hi('Constant', '#a25a09')
-call s:hi('Number', '#3d126e')
-call s:hi('Identifier', '#2a582a')
-call s:hi('Statement', '#085bba', '', s:base)
+call s:hi('Number', '#6b118a')
+call s:hi('Identifier', '#1a683a')
+call s:hi('Statement', '#0c71d5', '', s:base)
 call s:hi('String', '#0b3fad')
-call s:hi('PreProc', '#4c1d84')
+call s:hi('PreProc', '@Number')
 call s:hi('Conditional', '@Function')
 call s:hi('Special', '#141784')
 call s:hi('Type', '#bd3b09', '', s:base)
-call s:hi('Repeat', '#1e7b47')
+call s:hi('Repeat', '@Identifier')
 call s:hi('Function', '#cb1265')
 call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
 call s:hi('Ignore', '#666666')
 call s:hi('Todo', '#4d4214', '#fdfec9')
 call s:hi('Error', '#d1160b', '#ffe3e5')
 call s:hi('Underlined', '#2358ba')
-call s:hi('WildMenu', s:base, '$hilite')
+call s:hi('WildMenu', s:base, s:hilite)
 call s:hi('SignColumn', s:base, s:base)
 call s:hi('SpellBad', '@Error', '@Error', 'undercurl')
-call s:hi('SpellCap', '@String', '@Visual', 'undercurl')
+call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
 call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
 call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl')
+call s:hi('DiffAdd', s:base, '@SpellRare')
+call s:hi('DiffChange', s:base, '@SpellLocal')
+call s:hi('DiffDelete', s:base, '@SpellBad')
+call s:hi('DiffText', s:base, '@SpellCap')
 " }}}
 
 " Highlight!
@@ -235,5 +223,7 @@ unlet s:base_args
 unlet s:base
 unlet s:props
 unlet s:colors
+unlet s:frame
+unlet s:hilite
 " }}}
 
