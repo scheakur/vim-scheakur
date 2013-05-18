@@ -7,7 +7,7 @@ endif
 let g:colors_name = 'scheakur'
 
 " base colors and attributes
-let s:base_args = ['#2e2e2e', '#f2f2e7', 'none']
+let s:base_args = ['#2e2e2e', '#f2f2e7', 'none', 234, 254, 'none']
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -15,7 +15,7 @@ let s:props = {}
 let s:colors = {}
 
 " functions for highlighting " {{{
-function! s:hi(group, ...) " fg, bg, attr
+function! s:hi(group, ...) " fg, bg, attr, term_fg, term_bg, term_attr
 	let s:props[a:group] = a:000
 endfunction
 
@@ -26,32 +26,37 @@ endfunction
 function! s:do_highlight()
 	for group in keys(s:props)
 		let args = s:props[group]
+
 		let fg = s:get(args, 0, '')
 		let bg = s:get(args, 1, '')
 		let attr = s:get(args, 2, '')
+
+		let term_fg = s:get(args, 3, '')
+		let term_bg = s:get(args, 4, '')
+		let term_attr = s:get(args, 5, '')
 
 		if attr == 'undercurl'
 			execute 'hi ' . group
 			\	. ' ctermfg=' . s:tco(fg)
 			\	. ' guisp=#' . fg
 			\	. ' cterm=underline gui=' . attr
-			call s:apply(group, 'bg', bg)
+			call s:apply(group, 'bg', bg, term_bg)
 			continue
 		endif
 
-		call s:apply(group, 'fg', fg)
-		call s:apply(group, 'bg', bg)
-		call s:apply(group, '', attr)
+		call s:apply(group, 'fg', fg, term_fg)
+		call s:apply(group, 'bg', bg, term_bg)
+		call s:apply(group, '', attr, term_attr)
 	endfor
 endfunction
 
 
-function! s:apply(group, key, val)
+function! s:apply(group, key, val, term_val)
 	if empty(a:val)
 		return
 	endif
-	let term_val =  empty(a:key) ? a:val : s:tco(a:val)
-	let gui_val =  empty(a:key) ? a:val : ('#' . a:val)
+	let term_val = !empty(a:term_val) ? a:term_val : empty(a:key) ? a:val : s:tco(a:val)
+	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
 	execute 'hi ' . a:group
 	\	. ' cterm' . a:key . '=' . term_val
 	\	. ' gui' . a:key . '=' . gui_val
@@ -111,15 +116,19 @@ function! s:rgb2tco(r, g, b)
 endfunction
 
 function! s:rgb2color(r, g, b)
-	let r = float2nr(5.0 * a:r / 255.0 + 0.5)
-	let g = float2nr(5.0 * a:g / 255.0 + 0.5)
-	let b = float2nr(5.0 * a:b / 255.0 + 0.5)
+	let r = float2nr(5.0 * a:r / 255.0 - 0.45)
+	let g = float2nr(5.0 * a:g / 255.0 - 0.45)
+	let b = float2nr(5.0 * a:b / 255.0 - 0.45)
+	let r = (r < 0) ? 0 : r
+	let g = (g < 0) ? 0 : g
+	let b = (b < 0) ? 0 : b
 	let c = 16 + (r * 36) + (g * 6) + (b)
 	return c
 endfunction
 
 function! s:rgb2gray(r, g, b)
-	let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 + 0.5)
+	let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 - 0.45)
+	let gray = (gray < 0) ? 0 : gray
 	let gray += 232
 	return gray
 endfunction
@@ -143,7 +152,7 @@ let s:hilite = '#f4b3c2'
 
 
 " highlights " {{{
-call s:hi('Normal', s:base, s:base, s:base)
+call s:hi('Normal', s:base, s:base, s:base, s:base, s:base, s:base)
 call s:hi('Cursor', '', '#f39812')
 call s:hi('CursorIM', '#fededa', '#47885e')
 call s:hi('CursorLine', '', '#fafaf7')
@@ -151,7 +160,7 @@ call s:hi('CursorColumn', '', '@CursorLine')
 call s:hi('Directory', '#1177dd')
 call s:hi('Folded', '#04530d', '#d0ead0')
 call s:hi('FoldColumn', '@Folded', '@Folded')
-call s:hi('LineNr', '#567686', '#e2e2d0')
+call s:hi('LineNr', '#567686', '#e2e2d0', '', 236)
 call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
 call s:hi('ModeMsg', '#337ca3')
 call s:hi('MoreMsg', '#1e7b3d')
@@ -165,16 +174,16 @@ call s:hi('SpecialKey', '#aabbcc')
 call s:hi('StatusLine', '#dcdcdc', s:frame, 'none')
 call s:hi('StatusLineNC', '@StatusLine', '#7a7672', 'italic')
 call s:hi('VertSplit', s:frame, s:frame, 'none')
-call s:hi('Visual', '', '#cce0ef')
+call s:hi('Visual', '', '#cce0ef', '', '', 153)
 call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
 call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
-call s:hi('TabLineSel', s:frame, s:base, s:base)
+call s:hi('TabLineSel', s:frame, '', s:base)
 call s:hi('Title', '@Special', '', s:base)
-call s:hi('Pmenu', s:base, '#f6e4e7')
+call s:hi('Pmenu', s:base, '#f6e4e7', '', '', 231)
 call s:hi('PmenuSel', s:base, s:hilite)
 call s:hi('PmenuSbar', '', '@Pmenu')
 call s:hi('PmenuThumb', s:hilite)
-call s:hi('Comment', '#1e7b88', s:base)
+call s:hi('Comment', '#1e7b88', '')
 call s:hi('ColorColumn', '', '#dfd6d1')
 
 call s:hi('Constant', '#a25a09')
@@ -194,7 +203,7 @@ call s:hi('Todo', '#4d4214', '#fdfec9')
 call s:hi('Error', '#d1160b', '#ffe3e5')
 call s:hi('Underlined', '#2358ba')
 call s:hi('WildMenu', s:base, s:hilite)
-call s:hi('SignColumn', s:base, s:base)
+call s:hi('SignColumn', s:base, '')
 call s:hi('SpellBad', '@Error', '@Error', 'undercurl')
 call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
 call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
