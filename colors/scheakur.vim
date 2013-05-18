@@ -223,5 +223,7 @@ unlet s:base_args
 unlet s:base
 unlet s:props
 unlet s:colors
+unlet s:frame
+unlet s:hilite
 " }}}
 
