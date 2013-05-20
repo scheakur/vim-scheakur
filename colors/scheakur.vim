@@ -7,7 +7,7 @@ endif
 let g:colors_name = 'scheakur'
 
 " base colors and attributes
-let s:base_args = ['#2e2e2e', '#f2f2e7', 'none', 234, 255, 'none']
+let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -193,7 +193,7 @@ function! s:set_highlight()
 
 	call s:hi('Constant', '#1a7931')
 	call s:hi('Identifier', '#1a5991')
-	call s:hi('Statement', '#0c71d5', _, s:base)
+	call s:hi('Statement', '#0c6cc0', _, s:base)
 	call s:hi('String', '#0b3fad')
 	call s:hi('PreProc', '#6b118a')
 	call s:hi('Operator', '@PreProc')
