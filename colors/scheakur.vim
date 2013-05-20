@@ -188,7 +188,7 @@ function! s:set_highlight()
 	call s:copy('PmenuSel', '@IncSearch')
 	call s:hi('PmenuSbar', _, '@Pmenu')
 	call s:hi('PmenuThumb', '@PmenuSel')
-	call s:hi('Comment', '#537b88', _)
+	call s:hi('Comment', '#506a78', _)
 	call s:hi('ColorColumn', _, '#dfd6d1')
 
 	call s:hi('Constant', '#1a7931')
