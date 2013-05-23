@@ -6,8 +6,6 @@ if exists('syntax_on')
 endif
 let g:colors_name = 'scheakur'
 
-" base colors and attributes
-let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -154,8 +152,19 @@ let s:frame = '#4a4642'
 
 
 " highlights " {{{
-function! s:set_highlight()
+function! s:set_highlight(light)
+	if a:light
+		call s:set_light_colors()
+	else
+		call s:set_dark_colors()
+	endif
+endfunction
+
+
+function! s:set_light_colors()
 	let _ = ''
+
+	let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 
 	call s:hi('Normal', s:base, s:base, s:base, s:base, s:base, s:base)
 	call s:hi('Cursor', _, '#f39812')
@@ -218,10 +227,13 @@ function! s:set_highlight()
 	call s:hi('DiffDelete', s:base, '@SpellBad', _, _, '@Error')
 	call s:hi('DiffText', s:base, '@SpellCap')
 endfunction
+
+function! s:set_dark_colors()
+endfunction
 " }}}
 
 " Highlight!
-call s:set_highlight()
+call s:set_highlight(&background == 'light')
 call s:do_highlight()
 
 " cleanup {{{
