@@ -231,7 +231,7 @@ function! s:set_dark_colors()
 	let _ = ''
 	let x = '#002516'
 	let b = s:base
-	let frame = '#9bbcaa'
+	let frame = '#aac6b7'
 
 	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
 
@@ -257,7 +257,7 @@ function! s:set_dark_colors()
 	call s:hi('StatusLine', x, frame, 'none')
 	call s:hi('StatusLineNC', '@StatusLine', '#4c715d', 'italic')
 	call s:hi('VertSplit', frame, frame, 'none')
-	call s:hi('Visual', _, '#20478d', _, _, 153)
+	call s:hi('Visual', _, '#384953', _, _, 153)
 	call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
 	call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
 	call s:hi('TabLineSel', frame, _, b)
