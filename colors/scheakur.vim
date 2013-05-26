@@ -219,7 +219,7 @@ function! s:set_dark_colors() " {{{
 
 	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
 
-	call s:hi('CursorLine', _, '#3f3f3f')
+	call s:hi('CursorLine', _, '#2a322a')
 	call s:hi('Directory', '#6aaaea')
 	call s:hi('Folded', '#d0ead0', '#34433d')
 	call s:hi('LineNr', '#7c8884', '#243837')
