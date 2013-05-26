@@ -147,9 +147,6 @@ function! s:rgb_is_gray(r, g, b)
 endfunction
 " }}}
 
-" named colors
-let s:frame = '#4a4642'
-
 
 " highlights " {{{
 function! s:set_highlight(light)
@@ -158,46 +155,35 @@ function! s:set_highlight(light)
 	else
 		call s:set_dark_colors()
 	endif
+	call s:set_common_colors()
 endfunction
 
 
 function! s:set_light_colors() " {{{
 	let _ = ''
 	let b = s:base
+	let frame = '#4a4642'
 
 	let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 
-	call s:hi('Normal', b, b, b, b, b, b)
-	call s:hi('Cursor', _, '#f39812')
-	call s:hi('CursorIM', '#fededa', '#47885e')
 	call s:hi('CursorLine', _, '#fafaf7')
-	call s:hi('CursorColumn', _, '@CursorLine')
 	call s:hi('Directory', '#1177dd')
 	call s:hi('Folded', '#04530d', '#d0ead0')
-	call s:hi('FoldColumn', '@Folded', '@Folded')
 	call s:hi('LineNr', '#567686', '#e2e2d0', _, 236)
-	call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
 	call s:hi('ModeMsg', '#337ca3')
 	call s:hi('MoreMsg', '#1e7b3d')
 	call s:hi('WarningMsg', '#ea6042')
-	call s:copy('ErrorMsg', '@Error')
 	call s:hi('NonText', '#7878ba', _, b)
 	call s:hi('Question', '#008080')
 	call s:hi('IncSearch', b, '#f4b3c2', b, b, 218)
 	call s:hi('Search', b, '#e9e7ac')
 	call s:hi('SpecialKey', '#aabbcc')
-	call s:hi('StatusLine', '#dcdcdc', s:frame, 'none')
+	call s:hi('StatusLine', '#dcdcdc', frame, 'none')
 	call s:hi('StatusLineNC', '@StatusLine', '#7a7672', 'italic')
-	call s:hi('VertSplit', s:frame, s:frame, 'none')
+	call s:hi('VertSplit', frame, frame, 'none')
 	call s:hi('Visual', _, '#cce0ef', _, _, 153)
-	call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
-	call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
-	call s:hi('TabLineSel', s:frame, _, b)
-	call s:hi('Title', '@Special', _, b)
+	call s:hi('TabLineSel', frame, _, b)
 	call s:hi('Pmenu', b, '#f6e4e7', _, _, 231)
-	call s:copy('PmenuSel', '@IncSearch')
-	call s:hi('PmenuSbar', _, '@Pmenu')
-	call s:hi('PmenuThumb', '@PmenuSel')
 	call s:hi('Comment', '#506a78', _)
 	call s:hi('ColorColumn', _, '#dfd6d1')
 
@@ -206,7 +192,6 @@ function! s:set_light_colors() " {{{
 	call s:hi('Statement', '#0c6cc0', _, b)
 	call s:hi('String', '#0b3fad')
 	call s:hi('PreProc', '#6b118a')
-	call s:hi('Operator', '@PreProc')
 	call s:hi('Special', '#141784')
 	call s:hi('Type', '#bd3b09', _, b)
 	call s:hi('Function', '#cb1265')
@@ -214,10 +199,7 @@ function! s:set_light_colors() " {{{
 	call s:hi('Ignore', '#666666')
 	call s:hi('Todo', '#4d4214', '#fdfec9', _, _, 229)
 	call s:hi('Error', '#d1160b', '#ffe3e5', _, _, 223)
-	call s:hi('Underlined', '#2358ba')
 	call s:hi('Tag', '#a25a09')
-	call s:copy('WildMenu', '@IncSearch')
-	call s:hi('SignColumn', b, _)
 	call s:hi('SpellBad', '@Error', '@Error', 'undercurl', _, '@Error')
 	call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
 	call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
@@ -237,20 +219,13 @@ function! s:set_dark_colors() " {{{
 
 	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
 
-	call s:hi('Normal', b, b, b, b, b, b)
-	call s:hi('Cursor', _, '#f39812')
-	call s:hi('CursorIM', '#fededa', '#47885e')
 	call s:hi('CursorLine', _, '#3f3f3f')
-	call s:hi('CursorColumn', _, '@CursorLine')
 	call s:hi('Directory', '#6aaaea')
 	call s:hi('Folded', '#d0ead0', '#34433d')
-	call s:hi('FoldColumn', '@Folded', '@Folded')
 	call s:hi('LineNr', '#7c8884', '#243837')
-	call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
 	call s:hi('ModeMsg', '#6badd1')
 	call s:hi('MoreMsg', '#add581')
 	call s:hi('WarningMsg', '#e0b088')
-	call s:copy('ErrorMsg', '@Error')
 	call s:hi('NonText', '#7878ba', _, b)
 	call s:hi('Question', '#008080')
 	call s:hi('IncSearch', x, '#cce0ef', b, b)
@@ -260,14 +235,8 @@ function! s:set_dark_colors() " {{{
 	call s:hi('StatusLineNC', '@StatusLine', '#4c715d', 'italic')
 	call s:hi('VertSplit', frame, frame, 'none')
 	call s:hi('Visual', _, '#384953')
-	call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
-	call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
 	call s:hi('TabLineSel', frame, _, b)
-	call s:hi('Title', '@Special', _, b)
 	call s:hi('Pmenu', b, '#124055')
-	call s:copy('PmenuSel', '@IncSearch')
-	call s:hi('PmenuSbar', _, '@Pmenu')
-	call s:hi('PmenuThumb', '@PmenuSel')
 	call s:hi('Comment', '#506a78', _)
 	call s:hi('ColorColumn', _, '#363f31')
 
@@ -276,7 +245,6 @@ function! s:set_dark_colors() " {{{
 	call s:hi('Statement', '#91b5d4', _, b)
 	call s:hi('String', '#b7b063')
 	call s:hi('PreProc', '#5f94ca')
-	call s:hi('Operator', '@PreProc')
 	call s:hi('Special', '#70a395')
 	call s:hi('Type', '#8d89c7', _, b)
 	call s:hi('Function', '#d789c8')
@@ -284,10 +252,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('Ignore', '#666666')
 	call s:hi('Todo', '#fdfec9', '#4d4214', _, _, b)
 	call s:hi('Error', '#ff8485', b, _, _, b)
-	call s:hi('Underlined', '@String')
 	call s:hi('Tag', '#bacb67')
-	call s:copy('WildMenu', '@IncSearch')
-	call s:hi('SignColumn', '@LineNr', '@LineNr')
 	call s:hi('SpellBad', '@Error', b, 'undercurl', '@Error')
 	call s:hi('SpellCap', '@String', b, 'undercurl')
 	call s:hi('SpellRare', '@Folded', b, 'undercurl')
@@ -296,6 +261,32 @@ function! s:set_dark_colors() " {{{
 	call s:hi('DiffChange', '@SpellLocal', b, _, '@Todo')
 	call s:hi('DiffDelete', '@SpellBad', b, _, '@Error')
 	call s:hi('DiffText', '@SpellCap', b)
+endfunction " }}}
+
+
+function! s:set_common_colors() " {{{
+	let _ = ''
+	let b = s:base
+
+	call s:hi('Normal', b, b, b, b, b, b)
+
+	call s:hi('Cursor', _, '#f39812')
+	call s:hi('CursorIM', '#fafafa', '#47885e')
+	call s:hi('CursorColumn', _, '@CursorLine')
+	call s:hi('FoldColumn', '@Folded', '@Folded')
+	call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
+	call s:copy('ErrorMsg', '@Error')
+	call s:hi('TabLine', '@StatusLine', '@StatusLine', '@StatusLine')
+	call s:hi('TabLineFill', '@StatusLine', '@StatusLine', '@StatusLine')
+	call s:hi('Title', '@Special', _, b)
+	call s:copy('PmenuSel', '@IncSearch')
+	call s:hi('PmenuSbar', _, '@Pmenu')
+	call s:hi('PmenuThumb', '@PmenuSel')
+	call s:hi('SignColumn', '@LineNr', '@LineNr')
+
+	call s:hi('Operator', '@PreProc')
+	call s:hi('Underlined', '@String')
+	call s:copy('WildMenu', '@Normal')
 endfunction " }}}
 " }}}
 
@@ -317,6 +308,5 @@ delfunction s:rgb2color
 unlet s:base_args
 unlet s:base
 unlet s:props
-unlet s:frame
 " }}}
 
