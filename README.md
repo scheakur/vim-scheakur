@@ -18,5 +18,5 @@ set background=dark
 colorscheme scheakur
 ```
 
-![dark](https://www.evernote.com/shard/s71/sh/abb571c8-bba6-40b1-ae03-9dffcde661bd/ba2b96fcdfe14964d2290f868c4ec572/deep/0/vim-scheakur-dark.png)
+![dark](https://www.evernote.com/shard/s71/sh/b4d2512e-10f2-4cd0-9a05-62be8db86606/1ead4f1f8a0ab9269772ab591063b46a/deep/0/vim-scheakur-dark.png)
 
