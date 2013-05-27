@@ -4,7 +4,10 @@ highlight clear
 if exists('syntax_on')
 	syntax reset
 endif
-let g:colors_name = 'scheakur'
+
+if exists('g:colors_name')
+	unlet g:colors_name
+endif
 
 " constants
 let s:base = '_base_'
@@ -35,30 +38,48 @@ endfunction
 
 
 function! s:do_highlight()
-	for group in keys(s:props)
-		let args = s:props[group]
-
-		let fg = s:get(args, 0, '')
-		let bg = s:get(args, 1, '')
-		let attr = s:get(args, 2, '')
-
-		let term_fg = s:get(args, 3, '')
-		let term_bg = s:get(args, 4, '')
-		let term_attr = s:get(args, 5, '')
-
-		if attr == 'undercurl'
-			execute 'hi ' . group
-			\	. ' ctermfg=' . s:tco(fg)
-			\	. ' guisp=#' . fg
-			\	. ' cterm=underline gui=' . attr
-			call s:apply(group, 'bg', bg, term_bg)
-			continue
-		endif
-
-		call s:apply(group, 'fg', fg, term_fg)
-		call s:apply(group, 'bg', bg, term_bg)
-		call s:apply(group, '', attr, term_attr)
+	" Normal first
+	" see :help :hi-normal-cterm
+	for group in sort(keys(s:props), function('s:normal_first'))
+		call s:set_highlight(group)
 	endfor
+endfunction
+
+
+function! s:normal_first(g1, g2)
+	if a:g1 == 'Normal'
+		return -1
+	endif
+	if a:g2 == 'Normal'
+		return 1
+	endif
+	return a:g1 >= a:g2 ? 1 : -1
+endfunction
+
+
+function! s:set_highlight(group)
+	let args = s:props[a:group]
+
+	let fg = s:get(args, 0, '')
+	let bg = s:get(args, 1, '')
+	let attr = s:get(args, 2, '')
+
+	let term_fg = s:get(args, 3, '')
+	let term_bg = s:get(args, 4, '')
+	let term_attr = s:get(args, 5, '')
+
+	if attr == 'undercurl'
+		execute 'hi ' . a:group
+		\	. ' ctermfg=' . s:tco(fg)
+		\	. ' guisp=#' . fg
+		\	. ' cterm=underline gui=' . attr
+		call s:apply(a:group, 'bg', bg, term_bg)
+		return
+	endif
+
+	call s:apply(a:group, 'fg', fg, term_fg)
+	call s:apply(a:group, 'bg', bg, term_bg)
+	call s:apply(a:group, '', attr, term_attr)
 endfunction
 
 
@@ -294,6 +315,7 @@ endfunction " }}}
 
 " Highlight!
 call s:highlight(&background)
+let g:colors_name = 'scheakur'
 
 
 " cleanup {{{
