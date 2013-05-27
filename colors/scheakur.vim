@@ -22,6 +22,18 @@ function! s:copy(group, orig_group)
 endfunction
 
 
+function! s:highlight(bg)
+	if a:bg == 'light'
+		call s:set_light_colors()
+	else
+		call s:set_dark_colors()
+	endif
+	call s:set_common_colors()
+	call s:do_highlight()
+	let &background = a:bg
+endfunction
+
+
 function! s:do_highlight()
 	for group in keys(s:props)
 		let args = s:props[group]
@@ -149,16 +161,6 @@ endfunction
 
 
 " highlights " {{{
-function! s:set_highlight(is_light)
-	if a:is_light
-		call s:set_light_colors()
-	else
-		call s:set_dark_colors()
-	endif
-	call s:set_common_colors()
-endfunction
-
-
 function! s:set_light_colors() " {{{
 	let _ = ''
 	let b = s:base
@@ -291,8 +293,8 @@ endfunction " }}}
 " }}}
 
 " Highlight!
-call s:set_highlight(&background == 'light')
-call s:do_highlight()
+call s:highlight(&background)
+
 
 " cleanup {{{
 " TODO need ?
@@ -305,7 +307,7 @@ delfunction s:rgb2tco
 delfunction s:rgb_is_gray
 delfunction s:rgb2gray
 delfunction s:rgb2color
-delfunction s:set_highlight
+delfunction s:highlight
 delfunction s:set_light_colors
 delfunction s:set_dark_colors
 delfunction s:set_common_colors
