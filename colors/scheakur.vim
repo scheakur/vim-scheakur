@@ -5,9 +5,7 @@ if exists('syntax_on')
 	syntax reset
 endif
 
-if exists('g:colors_name')
-	unlet g:colors_name
-endif
+let g:colors_name = 'scheakur'
 
 " constants
 let s:base = '_base_'
@@ -315,7 +313,6 @@ endfunction " }}}
 
 " Highlight!
 call s:highlight(&background)
-let g:colors_name = 'scheakur'
 
 
 " cleanup {{{
