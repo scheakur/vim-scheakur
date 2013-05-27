@@ -237,7 +237,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('Visual', _, '#384953')
 	call s:hi('TabLineSel', frame, _, b)
 	call s:hi('Pmenu', b, '#124055')
-	call s:hi('Comment', '#506a78', _)
+	call s:hi('Comment', '#4f7a87', _)
 	call s:hi('ColorColumn', _, '#363f31')
 
 	call s:hi('Constant', '#d38d6b')
