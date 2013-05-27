@@ -222,7 +222,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('CursorLine', _, '#2a322a')
 	call s:hi('Directory', '#6aaaea')
 	call s:hi('Folded', '#a0cab0', '#34433d')
-	call s:hi('LineNr', '#7c8884', '#243837')
+	call s:hi('LineNr', '#7c8884', '#132423')
 	call s:hi('ModeMsg', '#6badd1')
 	call s:hi('MoreMsg', '#add581')
 	call s:hi('WarningMsg', '#e0b088')
