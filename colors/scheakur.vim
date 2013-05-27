@@ -213,7 +213,7 @@ endfunction " }}}
 
 function! s:set_dark_colors() " {{{
 	let _ = ''
-	let x = '#002516'
+	let x = '#121913'
 	let b = s:base
 	let frame = '#aac6b7'
 
