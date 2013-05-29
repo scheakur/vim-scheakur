@@ -255,7 +255,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('StatusLineNC', '#727572', '#020508', 'italic')
 	call s:hi('VertSplit', frame, frame, 'none')
 	call s:hi('Visual', _, '#23343d', _, _, 24)
-	call s:hi('TabLineSel', '@StatusLine', _, 'underline')
+	call s:hi('TabLineSel', '@Function', _, b)
 	call s:hi('Pmenu', b, '#124055', _, _, 24)
 	call s:hi('Comment', '#707073', _)
 	call s:hi('ColorColumn', _, '#262f21')
@@ -305,7 +305,7 @@ function! s:set_common_colors() " {{{
 
 	call s:hi('String', '@Special')
 	call s:hi('Operator', '@PreProc')
-	call s:hi('Underlined', '@String')
+	call s:hi('Underlined', '@Statement')
 	call s:copy('WildMenu', '@Normal')
 endfunction " }}}
 " }}}
