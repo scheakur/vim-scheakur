@@ -211,9 +211,8 @@ function! s:set_light_colors() " {{{
 	call s:hi('Constant', '#1a7931')
 	call s:hi('Identifier', '#1a5991')
 	call s:hi('Statement', '#0c6cc0', _, b)
-	call s:hi('String', '#0b3fad')
+	call s:hi('Special', '#0b3fad')
 	call s:hi('PreProc', '#6b118a')
-	call s:hi('Special', '#141784')
 	call s:hi('Type', '#bd3b09', _, b)
 	call s:hi('Function', '#cb1265')
 	call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
@@ -234,15 +233,15 @@ endfunction " }}}
 
 function! s:set_dark_colors() " {{{
 	let _ = ''
-	let x = '#121913'
+	let x = '#121713'
 	let b = s:base
-	let frame = '#aac6b7'
+	let frame = '#292c2f'
 
 	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
 
 	call s:hi('CursorLine', _, '#2a322a')
 	call s:hi('Directory', '#6aaaea')
-	call s:hi('Folded', '#a0cab0', '#34433d')
+	call s:hi('Folded', '#a0cab0', '#303a3b')
 	call s:hi('LineNr', '#7c8884', '#132423')
 	call s:hi('ModeMsg', '#6badd1')
 	call s:hi('MoreMsg', '#add581')
@@ -252,28 +251,27 @@ function! s:set_dark_colors() " {{{
 	call s:hi('IncSearch', x, '#cce0ef', b, _, 110)
 	call s:hi('Search', x, '#c9c73c')
 	call s:hi('SpecialKey', '#3a4857', _, _, 235)
-	call s:hi('StatusLine', x, frame, 'none')
-	call s:hi('StatusLineNC', '@StatusLine', '#4c715d', 'italic')
+	call s:hi('StatusLine', '#b2b5b2', frame, 'none')
+	call s:hi('StatusLineNC', '#727572', '#020508', 'italic')
 	call s:hi('VertSplit', frame, frame, 'none')
-	call s:hi('Visual', _, '#384953', _, _, 24)
-	call s:hi('TabLineSel', frame, _, b)
+	call s:hi('Visual', _, '#23343d', _, _, 24)
+	call s:hi('TabLineSel', '@StatusLine', _, 'underline')
 	call s:hi('Pmenu', b, '#124055', _, _, 24)
-	call s:hi('Comment', '#4f7a87', _)
-	call s:hi('ColorColumn', _, '#363f31')
+	call s:hi('Comment', '#707073', _)
+	call s:hi('ColorColumn', _, '#262f21')
 
-	call s:hi('Constant', '#d38d6b')
+	call s:hi('Constant', '#70a395')
 	call s:hi('Identifier', '#91a8a5')
 	call s:hi('Statement', '#91b5d4', _, b)
-	call s:hi('String', '#b7b063')
-	call s:hi('PreProc', '#5f94ca')
-	call s:hi('Special', '#70a395')
-	call s:hi('Type', '#8d89c7', _, b)
+	call s:hi('PreProc', '#8d89c7')
+	call s:hi('Special', '#b7b063')
+	call s:hi('Type', '#5f94ca', _, b)
 	call s:hi('Function', '#d789c8', _, _, 168)
 	call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
 	call s:hi('Ignore', '#666666')
 	call s:hi('Todo', '#fdfec9', '#4d4214', _, _, b)
 	call s:hi('Error', '#ff8485', b, _, _, b)
-	call s:hi('Tag', '#bacb67')
+	call s:hi('Tag', '#d38d6b')
 	call s:hi('SpellBad', '@Error', b, 'undercurl', '@Error')
 	call s:hi('SpellCap', '@String', b, 'undercurl')
 	call s:hi('SpellRare', '@Folded', b, 'undercurl')
@@ -305,6 +303,7 @@ function! s:set_common_colors() " {{{
 	call s:copy('PmenuThumb', '@PmenuSel')
 	call s:copy('SignColumn', '@LineNr')
 
+	call s:hi('String', '@Special')
 	call s:hi('Operator', '@PreProc')
 	call s:hi('Underlined', '@String')
 	call s:copy('WildMenu', '@Normal')
