@@ -248,7 +248,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('WarningMsg', '#e0b088')
 	call s:hi('NonText', '#7878ba', _, b)
 	call s:hi('Question', '#008080')
-	call s:hi('IncSearch', x, '#cce0ef', b, _, 110)
+	call s:hi('IncSearch', x, '#90a0ad', b, _, 110)
 	call s:hi('Search', x, '#c9c73c')
 	call s:hi('SpecialKey', '#3a4857', _, _, 235)
 	call s:hi('StatusLine', '#b2b5b2', frame, 'none')
@@ -256,7 +256,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('VertSplit', frame, frame, 'none')
 	call s:hi('Visual', _, '#23343d', _, _, 24)
 	call s:hi('TabLineSel', '@Function', _, b)
-	call s:hi('Pmenu', b, '#124055', _, _, 24)
+	call s:hi('Pmenu', b, '#123045', _, _, 24)
 	call s:hi('Comment', '#707073', _)
 	call s:hi('ColorColumn', _, '#262f21')
 
