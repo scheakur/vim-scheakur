@@ -9,7 +9,7 @@ set background=light
 colorscheme scheakur
 ```
 
-![light](https://www.evernote.com/shard/s71/sh/d778c33a-6786-4a93-b08d-e7b0f3513580/eeb28f188d76e9fb8e7e555989efc35a/deep/0/vim-scheakur.png)
+![light](https://www.evernote.com/shard/s71/sh/858b6bde-f317-4238-bf47-9683cce89b40/5db6b2fdc813f98e1d695c986774447c/deep/0/vim-scheakur-light.png)
 
 ## Dark
 
@@ -18,5 +18,5 @@ set background=dark
 colorscheme scheakur
 ```
 
-![dark](https://www.evernote.com/shard/s71/sh/b4d2512e-10f2-4cd0-9a05-62be8db86606/1ead4f1f8a0ab9269772ab591063b46a/deep/0/vim-scheakur-dark.png)
+![dark](https://www.evernote.com/shard/s71/sh/743b7f0c-04ed-404d-af35-8ef5e7ca94eb/68077945b351fd5e5b1e453f940e810c/deep/0/vim-scheakur-dark.png)
 
