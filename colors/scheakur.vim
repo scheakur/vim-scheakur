@@ -187,7 +187,7 @@ function! s:set_light_colors() " {{{
 
 	let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 
-	call s:hi('CursorLine', _, '#fafaf7')
+	call s:hi('CursorLine', _, '#cce0ef', _, _, 153)
 	call s:hi('Directory', '#1177dd')
 	call s:hi('Folded', '#04530d', '#d0ead0')
 	call s:hi('LineNr', '#567686', '#e2e2d0', _, 236)
@@ -239,7 +239,7 @@ function! s:set_dark_colors() " {{{
 
 	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
 
-	call s:hi('CursorLine', _, '#2a322a')
+	call s:hi('CursorLine', _, '#23343d', _, _, 24)
 	call s:hi('Directory', '#6aaaea')
 	call s:hi('Folded', '#a0cab0', '#303a3b')
 	call s:hi('LineNr', '#7c8884', '#132423')
