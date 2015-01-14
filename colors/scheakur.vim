@@ -250,7 +250,7 @@ function! s:set_dark_colors() " {{{
 	call s:hi('Question', '#00a0a0')
 	call s:hi('IncSearch', b, '#d51487', b, _, 162)
 	call s:hi('Search', x, '#c9c73c')
-	call s:hi('SpecialKey', '#3a4857', _, _, 235)
+	call s:hi('SpecialKey', '#3a4857', _, _, 59)
 	call s:hi('StatusLine', '#b2b5b2', frame, 'none', _, 237)
 	call s:hi('StatusLineNC', '#727572', '#020508', 'italic', 235, 232, b)
 	call s:hi('VertSplit', frame, frame, 'none', 237, 237)
