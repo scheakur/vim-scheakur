@@ -320,6 +320,8 @@ call add(s:build, '')
 call add(s:build, "if &background == 'light'")
 call s:highlight('light')
 call add(s:build, 'else')
+" reset highlighting properties
+let s:props = {}
 call s:highlight('dark')
 call add(s:build, 'endif')
 
