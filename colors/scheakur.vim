@@ -1,5 +1,4 @@
-" Vim colorscheme file
-
+" This file is built by ../build.vim
 highlight clear
 if exists('syntax_on')
 	syntax reset
@@ -7,330 +6,216 @@ endif
 
 let g:colors_name = 'scheakur'
 
-" constants
-let s:base = '_base_'
-" highlighting properties
-let s:props = {}
-
-" functions for highlighting " {{{
-function! s:hi(group, ...) " fg, bg, attr, term_fg, term_bg, term_attr
-	let s:props[a:group] = a:000
-endfunction
-
-function! s:copy(group, orig_group)
-	let orig = a:orig_group
-	call s:hi(a:group, orig, orig, orig, orig, orig, orig)
-endfunction
-
-
-function! s:highlight(bg)
-	if a:bg == 'light'
-		call s:set_light_colors()
-	else
-		call s:set_dark_colors()
-	endif
-	call s:set_common_colors()
-	call s:do_highlight()
-	let &background = a:bg
-endfunction
-
-
-function! s:do_highlight()
-	" Normal first
-	" see :help :hi-normal-cterm
-	for group in sort(keys(s:props), function('s:normal_first'))
-		call s:set_highlight(group)
-	endfor
-endfunction
-
-
-function! s:normal_first(g1, g2)
-	if a:g1 == 'Normal'
-		return -1
-	endif
-	if a:g2 == 'Normal'
-		return 1
-	endif
-	return a:g1 >= a:g2 ? 1 : -1
-endfunction
-
-
-function! s:set_highlight(group)
-	let args = s:props[a:group]
-
-	let fg = s:get(args, 0, '')
-	let bg = s:get(args, 1, '')
-	let attr = s:get(args, 2, '')
-
-	let term_fg = s:get(args, 3, '')
-	let term_bg = s:get(args, 4, '')
-	let term_attr = s:get(args, 5, '')
-
-	if attr == 'undercurl'
-		execute 'hi ' . a:group
-		\	. ' ctermfg=' . s:tco(fg)
-		\	. ' guisp=#' . fg
-		\	. ' cterm=underline gui=' . attr
-		call s:apply(a:group, 'bg', bg, term_bg)
-		return
-	endif
-
-	call s:apply(a:group, 'fg', fg, term_fg)
-	call s:apply(a:group, 'bg', bg, term_bg)
-	call s:apply(a:group, '', attr, term_attr)
-endfunction
-
-
-function! s:apply(group, key, val, term_val)
-	if empty(a:val)
-		return
-	endif
-	let term_val =
-	\	!empty(a:term_val) ? a:term_val :
-	\	empty(a:key) ? a:val :s:tco(a:val)
-	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
-	execute 'hi ' . a:group
-	\	. ' cterm' . a:key . '=' . term_val
-	\	. ' gui' . a:key . '=' . gui_val
-endfunction
-
-
-function! s:get(args, index, default, ...)
-	let val = s:get_val(a:args, a:index, a:default)
-	if val == ''
-		return val
-	endif
-	" rgb color
-	if val =~ '^#[a-fA-F0-9]\{6\}'
-		return strpart(val, 1)
-	endif
-	" Starting with '@' means a syntax group reference
-	if val =~ '^@'
-		let val = strpart(val, 1)
-		let props = (a:0 > 0) ? a:1 : copy(s:props)
-		let new_args = get(props, val, [])
-		if empty(new_args)
-			return ''
-		endif
-		call remove(props, val)
-		return s:get(new_args, a:index, a:default, props)
-	endif
-	" attribute
-	return val
-endfunction
-
-function! s:get_val(args, index, default)
-	let val = get(a:args, a:index, a:default)
-	if val == s:base
-		return get(s:base_args, a:index, '')
-	endif
-	if val != ''
-		return val
-	endif
-	return a:default
-endfunction
-
-" Terminal COlor
-function! s:tco(rgb)
-	let r = ('0x' . strpart(a:rgb, 0, 2)) + 0
-	let g = ('0x' . strpart(a:rgb, 2, 2)) + 0
-	let b = ('0x' . strpart(a:rgb, 4, 2)) + 0
-	let c = s:rgb2tco(r, g, b)
-	return c
-endfunction
-
-function! s:rgb2tco(r, g, b)
-	if s:rgb_is_gray(a:r, a:g, a:b)
-		return s:rgb2gray(a:r, a:g, a:b)
-	else
-		return s:rgb2color(a:r, a:g, a:b)
-	endif
-endfunction
-
-function! s:rgb2color(r, g, b)
-	let r = float2nr(5.0 * a:r / 255.0 - 0.45)
-	let g = float2nr(5.0 * a:g / 255.0 - 0.45)
-	let b = float2nr(5.0 * a:b / 255.0 - 0.45)
-	let r = (r < 0) ? 0 : r
-	let g = (g < 0) ? 0 : g
-	let b = (b < 0) ? 0 : b
-	let c = 16 + (r * 36) + (g * 6) + (b)
-	return c
-endfunction
-
-function! s:rgb2gray(r, g, b)
-	let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 - 0.45)
-	let gray = (gray < 0) ? 0 : gray
-	let gray += 232
-	return gray
-endfunction
-
-function! s:rgb_is_gray(r, g, b)
-	let r = a:r * a:r
-	let g = a:g * a:g
-	let b = a:b * a:b
-	let a = (r + g + b) / 3.0 " average
-	let t = 1500.0 " threshold
-	if (abs(a -r) < t && abs(a - g) < t && abs(a - b) < t)
-		return 1
-	endif
-	return 0
-endfunction
-" }}}
-
-
-" highlights " {{{
-function! s:set_light_colors() " {{{
-	let _ = ''
-	let b = s:base
-	let frame = '#4a4642'
-
-	let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
-
-	call s:hi('CursorLine', _, '#cce0ef', 'none', _, 153, 'none')
-	call s:hi('Directory', '#1177dd')
-	call s:hi('Folded', '#04530d', '#d0ead0')
-	call s:hi('LineNr', '#567686', '#e2e2d0', _, 236)
-	call s:hi('ModeMsg', '#337ca3')
-	call s:hi('MoreMsg', '#1e7b3d')
-	call s:hi('WarningMsg', '#ea6042')
-	call s:hi('NonText', '#7878ba', _, b)
-	call s:hi('Question', '#008080')
-	call s:hi('IncSearch', b, '#f4b3c2', b, b, 218)
-	call s:hi('Search', b, '#e9e7ac')
-	call s:hi('SpecialKey', '#aabbcc')
-	call s:hi('StatusLine', '#dcdcdc', frame, 'none')
-	call s:hi('StatusLineNC', '@StatusLine', '#7a7672', 'italic', _, _, b)
-	call s:hi('VertSplit', frame, frame, 'none')
-	call s:hi('Visual', _, '#cce0ef', _, _, 153)
-	call s:hi('TabLineSel', frame, _, b)
-	call s:hi('Pmenu', b, '#f6e4e7', _, _, 231)
-	call s:hi('Comment', '#506a78', _)
-	call s:hi('ColorColumn', _, '#dfd6d1')
-
-	call s:hi('Constant', '#1a7931')
-	call s:hi('Identifier', '#1a5991')
-	call s:hi('Statement', '#0c6cc0', _, b)
-	call s:hi('Special', '#0b3fad')
-	call s:hi('PreProc', '#6b118a')
-	call s:hi('Type', '#bd3b09', _, b)
-	call s:hi('Function', '#cb1265')
-	call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
-	call s:hi('Ignore', '#666666')
-	call s:hi('Todo', '#4d4214', '#fdfec9', _, _, 229)
-	call s:hi('Error', '#d1160b', '#ffe3e5', _, _, 223)
-	call s:hi('Tag', '#a25a09')
-	call s:hi('SpellBad', '@Error', '@Error', 'undercurl', _, '@Error')
-	call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
-	call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
-	call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl', _, '@Todo')
-	call s:hi('DiffAdd', b, '@SpellRare')
-	call s:hi('DiffChange', b, '@SpellLocal', _, _, '@Todo')
-	call s:hi('DiffDelete', b, '@SpellBad', _, _, '@Error')
-	call s:hi('DiffText', b, '@SpellCap')
-endfunction " }}}
-
-
-function! s:set_dark_colors() " {{{
-	let _ = ''
-	let x = '#121713'
-	let b = s:base
-	let frame = '#292c2f'
-
-	let s:base_args = ['#dadad5', x, 'none', 255, 234, 'none']
-
-	call s:hi('CursorLine', _, '#23343d', 'none', _, 24, 'none')
-	call s:hi('Directory', '#6aaaea')
-	call s:hi('Folded', '#a0cab0', '#303a3b')
-	call s:hi('LineNr', '#7c8884', '#132423')
-	call s:hi('ModeMsg', '#6badd1')
-	call s:hi('MoreMsg', '#add581')
-	call s:hi('WarningMsg', '#e0b088')
-	call s:hi('NonText', '#7878ba', _, b)
-	call s:hi('Question', '#00a0a0')
-	call s:hi('IncSearch', b, '#d51487', b, _, 162)
-	call s:hi('Search', x, '#c9c73c')
-	call s:hi('SpecialKey', '#3a4857', _, _, 59)
-	call s:hi('StatusLine', '#b2b5b2', frame, 'none', _, 237)
-	call s:hi('StatusLineNC', '#727572', '#020508', 'italic', 235, 232, b)
-	call s:hi('VertSplit', frame, frame, 'none', 237, 237)
-	call s:hi('Visual', _, '#23343d', _, _, 24)
-	call s:hi('TabLineSel', '@Function', _, b)
-	call s:hi('Pmenu', b, '@StatusLine', _, _, 237)
-	call s:hi('Comment', '#707073', _)
-	call s:hi('ColorColumn', _, '#262f21')
-
-	call s:hi('Constant', '#70a395')
-	call s:hi('Identifier', '#91a8a5')
-	call s:hi('Statement', '#91b5d4', _, b)
-	call s:hi('PreProc', '#8d89c7')
-	call s:hi('Special', '#a7a053')
-	call s:hi('Type', '#5f94ca', _, b)
-	call s:hi('Function', '#d789c8', _, _, 168)
-	call s:hi('MatchParen', b, '#088b8c')
-	call s:hi('Ignore', '#666666')
-	call s:hi('Todo', '#fdfec9', '#4d4214', _, _, b)
-	call s:hi('Error', '#ff8485', b, _, _, b)
-	call s:hi('Tag', '#d38d6b')
-	call s:hi('SpellBad', '@Error', b, 'undercurl', '@Error')
-	call s:hi('SpellCap', '@String', b, 'undercurl')
-	call s:hi('SpellRare', '@Folded', b, 'undercurl')
-	call s:hi('SpellLocal', '@Todo', b, 'undercurl', '@Todo')
-	call s:hi('DiffAdd', '@SpellRare', b)
-	call s:hi('DiffChange', '@SpellLocal', b, _, '@Todo')
-	call s:hi('DiffDelete', '@SpellBad', b, _, '@Error')
-	call s:hi('DiffText', '@SpellCap', b)
-endfunction " }}}
-
-
-function! s:set_common_colors() " {{{
-	let _ = ''
-	let b = s:base
-
-	call s:hi('Normal', b, b, b, b, b, b)
-
-	call s:hi('Cursor', _, '#f39812')
-	call s:hi('CursorIM', _, '#4a9f68')
-	call s:hi('CursorColumn', _, '@CursorLine')
-	call s:copy('FoldColumn', '@Folded')
-	call s:hi('CursorLineNr', '@LineNr', '@CursorLine', 'none')
-	call s:copy('ErrorMsg', '@Error')
-	call s:copy('TabLine', '@StatusLine')
-	call s:copy('TabLineFill', '@StatusLine')
-	call s:hi('Title', '@Special', _, b)
-	call s:copy('PmenuSel', '@IncSearch')
-	call s:copy('PmenuSbar', '@Pmenu')
-	call s:copy('PmenuThumb', '@PmenuSel')
-	call s:copy('SignColumn', '@LineNr')
-
-	call s:hi('String', '@Special')
-	call s:hi('Operator', '@PreProc')
-	call s:hi('Underlined', '@Statement')
-	call s:copy('WildMenu', '@Normal')
-endfunction " }}}
-" }}}
-
-" Highlight!
-call s:highlight(&background)
-
-
-" cleanup {{{
-" TODO need ?
-delfunction s:do_highlight
-delfunction s:hi
-delfunction s:get
-delfunction s:get_val
-delfunction s:tco
-delfunction s:rgb2tco
-delfunction s:rgb_is_gray
-delfunction s:rgb2gray
-delfunction s:rgb2color
-delfunction s:highlight
-delfunction s:set_light_colors
-delfunction s:set_dark_colors
-delfunction s:set_common_colors
-unlet s:base_args
-unlet s:base
-unlet s:props
-" }}}
-
+if &background == 'light'
+	hi Normal ctermfg=234 guifg=#2e2e2e
+	hi Normal ctermbg=255 guibg=#f0f0e5
+	hi Normal cterm=none gui=none
+	hi ColorColumn ctermbg=145 guibg=#dfd6d1
+	hi Comment ctermfg=59 guifg=#506a78
+	hi Constant ctermfg=22 guifg=#1a7931
+	hi Cursor ctermbg=172 guibg=#f39812
+	hi CursorColumn ctermbg=146 guibg=#cce0ef
+	hi CursorIM ctermbg=65 guibg=#4a9f68
+	hi CursorLine ctermbg=153 guibg=#cce0ef
+	hi CursorLine cterm=none gui=none
+	hi CursorLineNr ctermfg=60 guifg=#567686
+	hi CursorLineNr ctermbg=146 guibg=#cce0ef
+	hi CursorLineNr cterm=none gui=none
+	hi DiffAdd ctermfg=235 guifg=#2e2e2e
+	hi DiffAdd ctermbg=151 guibg=#d0ead0
+	hi DiffChange ctermfg=235 guifg=#2e2e2e
+	hi DiffChange ctermbg=229 guibg=#fdfec9
+	hi DiffDelete ctermfg=235 guifg=#2e2e2e
+	hi DiffDelete ctermbg=223 guibg=#ffe3e5
+	hi DiffText ctermfg=235 guifg=#2e2e2e
+	hi DiffText ctermbg=152 guibg=#dbf2ff
+	hi Directory ctermfg=25 guifg=#1177dd
+	hi Error ctermfg=124 guifg=#d1160b
+	hi Error ctermbg=223 guibg=#ffe3e5
+	hi ErrorMsg ctermfg=124 guifg=#d1160b
+	hi ErrorMsg ctermbg=223 guibg=#ffe3e5
+	hi FoldColumn ctermfg=22 guifg=#04530d
+	hi FoldColumn ctermbg=151 guibg=#d0ead0
+	hi Folded ctermfg=22 guifg=#04530d
+	hi Folded ctermbg=151 guibg=#d0ead0
+	hi Function ctermfg=125 guifg=#cb1265
+	hi Identifier ctermfg=24 guifg=#1a5991
+	hi Ignore ctermfg=240 guifg=#666666
+	hi IncSearch ctermfg=234 guifg=#2e2e2e
+	hi IncSearch ctermbg=218 guibg=#f4b3c2
+	hi IncSearch cterm=none gui=none
+	hi LineNr ctermfg=236 guifg=#567686
+	hi LineNr ctermbg=145 guibg=#e2e2d0
+	hi MatchParen ctermfg=31 guifg=#0e8ed3
+	hi MatchParen ctermbg=152 guibg=#dbf2ff
+	hi ModeMsg ctermfg=24 guifg=#337ca3
+	hi MoreMsg ctermfg=22 guifg=#1e7b3d
+	hi NonText ctermfg=61 guifg=#7878ba
+	hi NonText cterm=none gui=none
+	hi Operator ctermfg=54 guifg=#6b118a
+	hi Pmenu ctermfg=235 guifg=#2e2e2e
+	hi Pmenu ctermbg=231 guibg=#f6e4e7
+	hi PmenuSbar ctermfg=235 guifg=#2e2e2e
+	hi PmenuSbar ctermbg=231 guibg=#f6e4e7
+	hi PmenuSel ctermfg=234 guifg=#2e2e2e
+	hi PmenuSel ctermbg=218 guibg=#f4b3c2
+	hi PmenuSel cterm=none gui=none
+	hi PmenuThumb ctermfg=234 guifg=#2e2e2e
+	hi PmenuThumb ctermbg=218 guibg=#f4b3c2
+	hi PmenuThumb cterm=none gui=none
+	hi PreProc ctermfg=54 guifg=#6b118a
+	hi Question ctermfg=30 guifg=#008080
+	hi Search ctermfg=235 guifg=#2e2e2e
+	hi Search ctermbg=186 guibg=#e9e7ac
+	hi SignColumn ctermfg=236 guifg=#567686
+	hi SignColumn ctermbg=145 guibg=#e2e2d0
+	hi Special ctermfg=18 guifg=#0b3fad
+	hi SpecialKey ctermfg=109 guifg=#aabbcc
+	hi SpellBad ctermfg=124 guisp=#d1160b cterm=underline gui=undercurl
+	hi SpellBad ctermbg=223 guibg=#ffe3e5
+	hi SpellCap ctermfg=18 guisp=#0b3fad cterm=underline gui=undercurl
+	hi SpellCap ctermbg=152 guibg=#dbf2ff
+	hi SpellLocal ctermfg=52 guisp=#4d4214 cterm=underline gui=undercurl
+	hi SpellLocal ctermbg=229 guibg=#fdfec9
+	hi SpellRare ctermfg=22 guisp=#04530d cterm=underline gui=undercurl
+	hi SpellRare ctermbg=151 guibg=#d0ead0
+	hi Statement ctermfg=25 guifg=#0c6cc0
+	hi Statement cterm=none gui=none
+	hi StatusLine ctermfg=251 guifg=#dcdcdc
+	hi StatusLine ctermbg=237 guibg=#4a4642
+	hi StatusLine cterm=none gui=none
+	hi StatusLineNC ctermfg=251 guifg=#dcdcdc
+	hi StatusLineNC ctermbg=242 guibg=#7a7672
+	hi StatusLineNC cterm=none gui=italic
+	hi String ctermfg=18 guifg=#0b3fad
+	hi TabLine ctermfg=251 guifg=#dcdcdc
+	hi TabLine ctermbg=237 guibg=#4a4642
+	hi TabLine cterm=none gui=none
+	hi TabLineFill ctermfg=251 guifg=#dcdcdc
+	hi TabLineFill ctermbg=237 guibg=#4a4642
+	hi TabLineFill cterm=none gui=none
+	hi TabLineSel ctermfg=237 guifg=#4a4642
+	hi TabLineSel cterm=none gui=none
+	hi Tag ctermfg=94 guifg=#a25a09
+	hi Title ctermfg=18 guifg=#0b3fad
+	hi Title cterm=none gui=none
+	hi Todo ctermfg=52 guifg=#4d4214
+	hi Todo ctermbg=229 guibg=#fdfec9
+	hi Type ctermfg=124 guifg=#bd3b09
+	hi Type cterm=none gui=none
+	hi Underlined ctermfg=25 guifg=#0c6cc0
+	hi VertSplit ctermfg=237 guifg=#4a4642
+	hi VertSplit ctermbg=237 guibg=#4a4642
+	hi VertSplit cterm=none gui=none
+	hi Visual ctermbg=153 guibg=#cce0ef
+	hi WarningMsg ctermfg=166 guifg=#ea6042
+	hi WildMenu ctermfg=234 guifg=#2e2e2e
+	hi WildMenu ctermbg=255 guibg=#f0f0e5
+	hi WildMenu cterm=none gui=none
+else
+	hi Normal ctermfg=255 guifg=#dadad5
+	hi Normal ctermbg=234 guibg=#121713
+	hi Normal cterm=none gui=none
+	hi ColorColumn ctermbg=235 guibg=#262f21
+	hi Comment ctermfg=241 guifg=#707073
+	hi Constant ctermfg=66 guifg=#70a395
+	hi Cursor ctermbg=172 guibg=#f39812
+	hi CursorColumn ctermbg=235 guibg=#23343d
+	hi CursorIM ctermbg=65 guibg=#4a9f68
+	hi CursorLine ctermbg=24 guibg=#23343d
+	hi CursorLine cterm=none gui=none
+	hi CursorLineNr ctermfg=66 guifg=#7c8884
+	hi CursorLineNr ctermbg=235 guibg=#23343d
+	hi CursorLineNr cterm=none gui=none
+	hi DiffAdd ctermfg=109 guifg=#a0cab0
+	hi DiffAdd ctermbg=233 guibg=#121713
+	hi DiffChange ctermfg=187 guifg=#fdfec9
+	hi DiffChange ctermbg=233 guibg=#121713
+	hi DiffDelete ctermfg=174 guifg=#ff8485
+	hi DiffDelete ctermbg=233 guibg=#121713
+	hi DiffText ctermfg=101 guifg=#a7a053
+	hi DiffText ctermbg=233 guibg=#121713
+	hi Directory ctermfg=68 guifg=#6aaaea
+	hi Error ctermfg=174 guifg=#ff8485
+	hi Error ctermbg=234 guibg=#121713
+	hi ErrorMsg ctermfg=174 guifg=#ff8485
+	hi ErrorMsg ctermbg=234 guibg=#121713
+	hi FoldColumn ctermfg=109 guifg=#a0cab0
+	hi FoldColumn ctermbg=236 guibg=#303a3b
+	hi Folded ctermfg=109 guifg=#a0cab0
+	hi Folded ctermbg=236 guibg=#303a3b
+	hi Function ctermfg=168 guifg=#d789c8
+	hi Identifier ctermfg=102 guifg=#91a8a5
+	hi Ignore ctermfg=240 guifg=#666666
+	hi IncSearch ctermfg=251 guifg=#dadad5
+	hi IncSearch ctermbg=162 guibg=#d51487
+	hi IncSearch cterm=none gui=none
+	hi LineNr ctermfg=66 guifg=#7c8884
+	hi LineNr ctermbg=234 guibg=#132423
+	hi MatchParen ctermfg=251 guifg=#dadad5
+	hi MatchParen ctermbg=30 guibg=#088b8c
+	hi ModeMsg ctermfg=67 guifg=#6badd1
+	hi MoreMsg ctermfg=108 guifg=#add581
+	hi NonText ctermfg=61 guifg=#7878ba
+	hi NonText cterm=none gui=none
+	hi Operator ctermfg=103 guifg=#8d89c7
+	hi Pmenu ctermfg=251 guifg=#dadad5
+	hi Pmenu ctermbg=237 guibg=#292c2f
+	hi PmenuSbar ctermfg=251 guifg=#dadad5
+	hi PmenuSbar ctermbg=237 guibg=#292c2f
+	hi PmenuSel ctermfg=251 guifg=#dadad5
+	hi PmenuSel ctermbg=162 guibg=#d51487
+	hi PmenuSel cterm=none gui=none
+	hi PmenuThumb ctermfg=251 guifg=#dadad5
+	hi PmenuThumb ctermbg=162 guibg=#d51487
+	hi PmenuThumb cterm=none gui=none
+	hi PreProc ctermfg=103 guifg=#8d89c7
+	hi Question ctermfg=30 guifg=#00a0a0
+	hi Search ctermfg=233 guifg=#121713
+	hi Search ctermbg=142 guibg=#c9c73c
+	hi SignColumn ctermfg=66 guifg=#7c8884
+	hi SignColumn ctermbg=234 guibg=#132423
+	hi Special ctermfg=101 guifg=#a7a053
+	hi SpecialKey ctermfg=59 guifg=#3a4857
+	hi SpellBad ctermfg=174 guisp=#ff8485 cterm=underline gui=undercurl
+	hi SpellBad ctermbg=233 guibg=#121713
+	hi SpellCap ctermfg=101 guisp=#a7a053 cterm=underline gui=undercurl
+	hi SpellCap ctermbg=233 guibg=#121713
+	hi SpellLocal ctermfg=187 guisp=#fdfec9 cterm=underline gui=undercurl
+	hi SpellLocal ctermbg=233 guibg=#121713
+	hi SpellRare ctermfg=109 guisp=#a0cab0 cterm=underline gui=undercurl
+	hi SpellRare ctermbg=233 guibg=#121713
+	hi Statement ctermfg=109 guifg=#91b5d4
+	hi Statement cterm=none gui=none
+	hi StatusLine ctermfg=247 guifg=#b2b5b2
+	hi StatusLine ctermbg=237 guibg=#292c2f
+	hi StatusLine cterm=none gui=none
+	hi StatusLineNC ctermfg=235 guifg=#727572
+	hi StatusLineNC ctermbg=232 guibg=#020508
+	hi StatusLineNC cterm=none gui=italic
+	hi String ctermfg=101 guifg=#a7a053
+	hi TabLine ctermfg=247 guifg=#b2b5b2
+	hi TabLine ctermbg=237 guibg=#292c2f
+	hi TabLine cterm=none gui=none
+	hi TabLineFill ctermfg=247 guifg=#b2b5b2
+	hi TabLineFill ctermbg=237 guibg=#292c2f
+	hi TabLineFill cterm=none gui=none
+	hi TabLineSel ctermfg=139 guifg=#d789c8
+	hi TabLineSel cterm=none gui=none
+	hi Tag ctermfg=137 guifg=#d38d6b
+	hi Title ctermfg=101 guifg=#a7a053
+	hi Title cterm=none gui=none
+	hi Todo ctermfg=187 guifg=#fdfec9
+	hi Todo ctermbg=234 guibg=#4d4214
+	hi Type ctermfg=67 guifg=#5f94ca
+	hi Type cterm=none gui=none
+	hi Underlined ctermfg=109 guifg=#91b5d4
+	hi VertSplit ctermfg=237 guifg=#292c2f
+	hi VertSplit ctermbg=237 guibg=#292c2f
+	hi VertSplit cterm=none gui=none
+	hi Visual ctermbg=24 guibg=#23343d
+	hi WarningMsg ctermfg=144 guifg=#e0b088
+	hi WildMenu ctermfg=255 guifg=#dadad5
+	hi WildMenu ctermbg=234 guibg=#121713
+	hi WildMenu cterm=none gui=none
+endif
