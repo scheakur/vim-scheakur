@@ -64,7 +64,7 @@ function! s:set_highlight(group)
 	let term_attr = s:get(args, 5, '')
 
 	if attr == 'undercurl'
-		call add(s:output, '	hi ' . a:group
+		call add(s:output, "\thi " . a:group
 		\	. ' ctermfg=' . s:tco(fg)
 		\	. ' guisp=#' . fg
 		\	. ' cterm=underline gui=' . attr)
@@ -86,7 +86,7 @@ function! s:apply(group, key, val, term_val)
 	\	!empty(a:term_val) ? a:term_val :
 	\	empty(a:key) ? a:val :s:tco(a:val)
 	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
-	call add(s:output, '	hi ' . a:group
+	call add(s:output, "\thi " . a:group
 	\	. ' cterm' . a:key . '=' . term_val
 	\	. ' gui' . a:key . '=' . gui_val)
 endfunction
@@ -312,7 +312,7 @@ endfunction " }}}
 call add(s:output, '" This file is built by ../source.vim')
 call add(s:output, 'highlight clear')
 call add(s:output, "if exists('syntax_on')")
-call add(s:output, '	syntax reset')
+call add(s:output, "\tsyntax reset")
 call add(s:output, 'endif')
 call add(s:output, '')
 call add(s:output, "let g:colors_name = 'scheakur'")
