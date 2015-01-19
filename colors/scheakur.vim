@@ -1,4 +1,4 @@
-" This file is built by ../build.vim
+" This file is built by ../source.vim
 highlight clear
 if exists('syntax_on')
 	syntax reset

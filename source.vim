@@ -1,8 +1,8 @@
-" HOW TO BUILD: vim -u build.vim
+" HOW TO BUILD: vim -u source.vim
 
 set nocompatible
 
-let s:build = []
+let s:output = []
 
 " constants
 let s:base = '_base_'
@@ -64,7 +64,7 @@ function! s:set_highlight(group)
 	let term_attr = s:get(args, 5, '')
 
 	if attr == 'undercurl'
-		call add(s:build, '	hi ' . a:group
+		call add(s:output, '	hi ' . a:group
 		\	. ' ctermfg=' . s:tco(fg)
 		\	. ' guisp=#' . fg
 		\	. ' cterm=underline gui=' . attr)
@@ -86,7 +86,7 @@ function! s:apply(group, key, val, term_val)
 	\	!empty(a:term_val) ? a:term_val :
 	\	empty(a:key) ? a:val :s:tco(a:val)
 	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
-	call add(s:build, '	hi ' . a:group
+	call add(s:output, '	hi ' . a:group
 	\	. ' cterm' . a:key . '=' . term_val
 	\	. ' gui' . a:key . '=' . gui_val)
 endfunction
@@ -309,23 +309,23 @@ endfunction " }}}
 
 
 " Make colorscheme file
-call add(s:build, '" This file is built by ../build.vim')
-call add(s:build, 'highlight clear')
-call add(s:build, "if exists('syntax_on')")
-call add(s:build, '	syntax reset')
-call add(s:build, 'endif')
-call add(s:build, '')
-call add(s:build, "let g:colors_name = 'scheakur'")
-call add(s:build, '')
-call add(s:build, "if &background == 'light'")
+call add(s:output, '" This file is built by ../source.vim')
+call add(s:output, 'highlight clear')
+call add(s:output, "if exists('syntax_on')")
+call add(s:output, '	syntax reset')
+call add(s:output, 'endif')
+call add(s:output, '')
+call add(s:output, "let g:colors_name = 'scheakur'")
+call add(s:output, '')
+call add(s:output, "if &background == 'light'")
 call s:highlight('light')
-call add(s:build, 'else')
+call add(s:output, 'else')
 " reset highlighting properties
 let s:props = {}
 call s:highlight('dark')
-call add(s:build, 'endif')
+call add(s:output, 'endif')
 
-call writefile(s:build, 'colors/scheakur.vim')
+call writefile(s:output, 'colors/scheakur.vim')
 
 " cleanup {{{
 " TODO need ?
@@ -345,5 +345,5 @@ delfunction s:set_common_colors
 unlet s:base_args
 unlet s:base
 unlet s:props
-unlet s:build
+unlet s:output
 " }}}
