@@ -309,7 +309,8 @@ endfunction " }}}
 
 
 " Make colorscheme file
-call add(s:output, '" This file is built by ../source.vim')
+call add(s:output, '" This file is built by ../source.vim.')
+call add(s:output, '" Do not modify this file directly.')
 call add(s:output, 'highlight clear')
 call add(s:output, "if exists('syntax_on')")
 call add(s:output, "\tsyntax reset")
