@@ -198,6 +198,8 @@ function! s:set_light_colors() " {{{
 
 	let s:base_args = ['#2e2e2e', '#f0f0e5', 'none', 234, 255, 'none']
 
+	let darkred = '#ffe3e5'
+
 	call s:hi('CursorLine', _, '#cce0ef', 'none', _, 153, 'none')
 	call s:hi('Directory', '#1177dd')
 	call s:hi('Folded', '#04530d', '#d0ead0')
@@ -229,16 +231,16 @@ function! s:set_light_colors() " {{{
 	call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
 	call s:hi('Ignore', '#666666')
 	call s:hi('Todo', '#4d4214', '#fdfec9', _, _, 229)
-	call s:hi('Error', '#d1160b', '#ffe3e5', _, _, 223)
+	call s:hi('Error', '#d1160b', darkred, _, _, 223)
 	call s:hi('Tag', '#a25a09')
 	call s:hi('SpellBad', '@Error', '@Error', 'undercurl', _, '@Error')
 	call s:hi('SpellCap', '@String', '@MatchParen', 'undercurl')
 	call s:hi('SpellRare', '@Folded', '@Folded', 'undercurl')
 	call s:hi('SpellLocal', '@Todo', '@Todo', 'undercurl', _, '@Todo')
-	call s:hi('DiffAdd', b, '@SpellRare')
-	call s:hi('DiffChange', b, '@SpellLocal', _, _, '@Todo')
-	call s:hi('DiffDelete', b, '@SpellBad', _, _, '@Error')
-	call s:hi('DiffText', b, '@SpellCap')
+	call s:hi('DiffAdd', _, '@SpellRare')
+	call s:hi('DiffDelete', darkred, darkred, _, 174, 174)
+	call s:hi('DiffChange', _, '@SpellLocal', _, _, '@Todo')
+	call s:hi('DiffText', _, '#fed910')
 endfunction " }}}
 
 
@@ -287,10 +289,10 @@ function! s:set_dark_colors() " {{{
 	call s:hi('SpellCap', '@String', b, 'undercurl')
 	call s:hi('SpellRare', '@Folded', b, 'undercurl')
 	call s:hi('SpellLocal', '@Todo', b, 'undercurl', '@Todo')
-	call s:hi('DiffAdd', '@SpellRare', b)
-	call s:hi('DiffChange', '@SpellLocal', b, _, '@Todo')
-	call s:hi('DiffDelete', '@SpellBad', b, _, '@Error')
-	call s:hi('DiffText', '@SpellCap', b)
+	call s:hi('DiffAdd', _, '#013a06', b, 71, 16)
+	call s:hi('DiffDelete', '#491008', '#491008', _, 237, 237)
+	call s:hi('DiffChange', _, '#4a4707', _, 178, 235)
+	call s:hi('DiffText', '#fefd03', '#7b7b00', _, 226)
 endfunction " }}}
 
 

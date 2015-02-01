@@ -8,215 +8,121 @@ endif
 let g:colors_name = 'scheakur'
 
 if &background == 'light'
-	hi Normal ctermfg=234 guifg=#2e2e2e
-	hi Normal ctermbg=255 guibg=#f0f0e5
-	hi Normal cterm=none gui=none
-	hi ColorColumn ctermbg=145 guibg=#dfd6d1
-	hi Comment ctermfg=59 guifg=#506a78
-	hi Constant ctermfg=22 guifg=#1a7931
-	hi Cursor ctermbg=172 guibg=#f39812
-	hi CursorColumn ctermbg=146 guibg=#cce0ef
-	hi CursorIM ctermbg=65 guibg=#4a9f68
-	hi CursorLine ctermbg=153 guibg=#cce0ef
-	hi CursorLine cterm=none gui=none
-	hi CursorLineNr ctermfg=60 guifg=#567686
-	hi CursorLineNr ctermbg=146 guibg=#cce0ef
-	hi CursorLineNr cterm=none gui=none
-	hi DiffAdd ctermfg=235 guifg=#2e2e2e
-	hi DiffAdd ctermbg=151 guibg=#d0ead0
-	hi DiffChange ctermfg=235 guifg=#2e2e2e
-	hi DiffChange ctermbg=229 guibg=#fdfec9
-	hi DiffDelete ctermfg=235 guifg=#2e2e2e
-	hi DiffDelete ctermbg=223 guibg=#ffe3e5
-	hi DiffText ctermfg=235 guifg=#2e2e2e
-	hi DiffText ctermbg=152 guibg=#dbf2ff
-	hi Directory ctermfg=25 guifg=#1177dd
-	hi Error ctermfg=124 guifg=#d1160b
-	hi Error ctermbg=223 guibg=#ffe3e5
-	hi ErrorMsg ctermfg=124 guifg=#d1160b
-	hi ErrorMsg ctermbg=223 guibg=#ffe3e5
-	hi FoldColumn ctermfg=22 guifg=#04530d
-	hi FoldColumn ctermbg=151 guibg=#d0ead0
-	hi Folded ctermfg=22 guifg=#04530d
-	hi Folded ctermbg=151 guibg=#d0ead0
-	hi Function ctermfg=125 guifg=#cb1265
-	hi Identifier ctermfg=24 guifg=#1a5991
-	hi Ignore ctermfg=240 guifg=#666666
-	hi IncSearch ctermfg=234 guifg=#2e2e2e
-	hi IncSearch ctermbg=218 guibg=#f4b3c2
-	hi IncSearch cterm=none gui=none
-	hi LineNr ctermfg=236 guifg=#567686
-	hi LineNr ctermbg=145 guibg=#e2e2d0
-	hi MatchParen ctermfg=31 guifg=#0e8ed3
-	hi MatchParen ctermbg=152 guibg=#dbf2ff
-	hi ModeMsg ctermfg=24 guifg=#337ca3
-	hi MoreMsg ctermfg=22 guifg=#1e7b3d
-	hi NonText ctermfg=61 guifg=#7878ba
-	hi NonText cterm=none gui=none
-	hi Operator ctermfg=54 guifg=#6b118a
-	hi Pmenu ctermfg=235 guifg=#2e2e2e
-	hi Pmenu ctermbg=231 guibg=#f6e4e7
-	hi PmenuSbar ctermfg=235 guifg=#2e2e2e
-	hi PmenuSbar ctermbg=231 guibg=#f6e4e7
-	hi PmenuSel ctermfg=234 guifg=#2e2e2e
-	hi PmenuSel ctermbg=218 guibg=#f4b3c2
-	hi PmenuSel cterm=none gui=none
-	hi PmenuThumb ctermfg=234 guifg=#2e2e2e
-	hi PmenuThumb ctermbg=218 guibg=#f4b3c2
-	hi PmenuThumb cterm=none gui=none
-	hi PreProc ctermfg=54 guifg=#6b118a
-	hi Question ctermfg=30 guifg=#008080
-	hi Search ctermfg=235 guifg=#2e2e2e
-	hi Search ctermbg=186 guibg=#e9e7ac
-	hi SignColumn ctermfg=236 guifg=#567686
-	hi SignColumn ctermbg=145 guibg=#e2e2d0
-	hi Special ctermfg=18 guifg=#0b3fad
-	hi SpecialKey ctermfg=109 guifg=#aabbcc
-	hi SpellBad ctermfg=124 guisp=#d1160b cterm=underline gui=undercurl
-	hi SpellBad ctermbg=223 guibg=#ffe3e5
-	hi SpellCap ctermfg=18 guisp=#0b3fad cterm=underline gui=undercurl
-	hi SpellCap ctermbg=152 guibg=#dbf2ff
-	hi SpellLocal ctermfg=52 guisp=#4d4214 cterm=underline gui=undercurl
-	hi SpellLocal ctermbg=229 guibg=#fdfec9
-	hi SpellRare ctermfg=22 guisp=#04530d cterm=underline gui=undercurl
-	hi SpellRare ctermbg=151 guibg=#d0ead0
-	hi Statement ctermfg=25 guifg=#0c6cc0
-	hi Statement cterm=none gui=none
-	hi StatusLine ctermfg=251 guifg=#dcdcdc
-	hi StatusLine ctermbg=237 guibg=#4a4642
-	hi StatusLine cterm=none gui=none
-	hi StatusLineNC ctermfg=251 guifg=#dcdcdc
-	hi StatusLineNC ctermbg=242 guibg=#7a7672
-	hi StatusLineNC cterm=none gui=italic
-	hi String ctermfg=18 guifg=#0b3fad
-	hi TabLine ctermfg=251 guifg=#dcdcdc
-	hi TabLine ctermbg=237 guibg=#4a4642
-	hi TabLine cterm=none gui=none
-	hi TabLineFill ctermfg=251 guifg=#dcdcdc
-	hi TabLineFill ctermbg=237 guibg=#4a4642
-	hi TabLineFill cterm=none gui=none
-	hi TabLineSel ctermfg=237 guifg=#4a4642
-	hi TabLineSel cterm=none gui=none
-	hi Tag ctermfg=94 guifg=#a25a09
-	hi Title ctermfg=18 guifg=#0b3fad
-	hi Title cterm=none gui=none
-	hi Todo ctermfg=52 guifg=#4d4214
-	hi Todo ctermbg=229 guibg=#fdfec9
-	hi Type ctermfg=124 guifg=#bd3b09
-	hi Type cterm=none gui=none
-	hi Underlined ctermfg=25 guifg=#0c6cc0
-	hi VertSplit ctermfg=237 guifg=#4a4642
-	hi VertSplit ctermbg=237 guibg=#4a4642
-	hi VertSplit cterm=none gui=none
-	hi Visual ctermbg=153 guibg=#cce0ef
-	hi WarningMsg ctermfg=166 guifg=#ea6042
-	hi WildMenu ctermfg=234 guifg=#2e2e2e
-	hi WildMenu ctermbg=255 guibg=#f0f0e5
-	hi WildMenu cterm=none gui=none
+	hi Normal guifg=#2e2e2e guibg=#f0f0e5 gui=none ctermfg=234 ctermbg=255 cterm=none
+	hi ColorColumn guibg=#dfd6d1 ctermbg=145
+	hi Comment guifg=#506a78 ctermfg=59
+	hi Constant guifg=#1a7931 ctermfg=22
+	hi Cursor guibg=#f39812 ctermbg=172
+	hi CursorColumn guibg=#cce0ef ctermbg=146
+	hi CursorIM guibg=#4a9f68 ctermbg=65
+	hi CursorLine guibg=#cce0ef gui=none ctermbg=153 cterm=none
+	hi CursorLineNr guifg=#567686 guibg=#cce0ef gui=none ctermfg=60 ctermbg=146
+	hi DiffAdd guibg=#d0ead0 ctermbg=151
+	hi DiffChange guibg=#fdfec9 ctermbg=229
+	hi DiffDelete guifg=#ffe3e5 guibg=#ffe3e5 ctermfg=174 ctermbg=174
+	hi DiffText guibg=#fed910 ctermbg=178
+	hi Directory guifg=#1177dd ctermfg=25
+	hi Error guifg=#d1160b guibg=#ffe3e5 ctermfg=124 ctermbg=223
+	hi ErrorMsg guifg=#d1160b guibg=#ffe3e5 ctermfg=124 ctermbg=223
+	hi FoldColumn guifg=#04530d guibg=#d0ead0 ctermfg=22 ctermbg=151
+	hi Folded guifg=#04530d guibg=#d0ead0 ctermfg=22 ctermbg=151
+	hi Function guifg=#cb1265 ctermfg=125
+	hi Identifier guifg=#1a5991 ctermfg=24
+	hi Ignore guifg=#666666 ctermfg=240
+	hi IncSearch guifg=#2e2e2e guibg=#f4b3c2 gui=none ctermfg=234 ctermbg=218
+	hi LineNr guifg=#567686 guibg=#e2e2d0 ctermfg=236 ctermbg=145
+	hi MatchParen guifg=#0e8ed3 guibg=#dbf2ff ctermfg=31 ctermbg=152
+	hi ModeMsg guifg=#337ca3 ctermfg=24
+	hi MoreMsg guifg=#1e7b3d ctermfg=22
+	hi NonText guifg=#7878ba gui=none ctermfg=61
+	hi Operator guifg=#6b118a ctermfg=54
+	hi Pmenu guifg=#2e2e2e guibg=#f6e4e7 ctermfg=235 ctermbg=231
+	hi PmenuSbar guifg=#2e2e2e guibg=#f6e4e7 ctermfg=235 ctermbg=231
+	hi PmenuSel guifg=#2e2e2e guibg=#f4b3c2 gui=none ctermfg=234 ctermbg=218
+	hi PmenuThumb guifg=#2e2e2e guibg=#f4b3c2 gui=none ctermfg=234 ctermbg=218
+	hi PreProc guifg=#6b118a ctermfg=54
+	hi Question guifg=#008080 ctermfg=30
+	hi Search guifg=#2e2e2e guibg=#e9e7ac ctermfg=235 ctermbg=186
+	hi SignColumn guifg=#567686 guibg=#e2e2d0 ctermfg=236 ctermbg=145
+	hi Special guifg=#0b3fad ctermfg=18
+	hi SpecialKey guifg=#aabbcc ctermfg=109
+	hi SpellBad guifg=#d1160b guibg=#ffe3e5 gui=undercurl ctermfg=124 ctermbg=223 guisp=#d1160b cterm=underline
+	hi SpellCap guifg=#0b3fad guibg=#dbf2ff gui=undercurl ctermfg=18 ctermbg=152 guisp=#0b3fad cterm=underline
+	hi SpellLocal guifg=#4d4214 guibg=#fdfec9 gui=undercurl ctermfg=52 ctermbg=229 guisp=#4d4214 cterm=underline
+	hi SpellRare guifg=#04530d guibg=#d0ead0 gui=undercurl ctermfg=22 ctermbg=151 guisp=#04530d cterm=underline
+	hi Statement guifg=#0c6cc0 gui=none ctermfg=25
+	hi StatusLine guifg=#dcdcdc guibg=#4a4642 gui=none ctermfg=251 ctermbg=237
+	hi StatusLineNC guifg=#dcdcdc guibg=#7a7672 gui=italic ctermfg=251 ctermbg=242 cterm=none
+	hi String guifg=#0b3fad ctermfg=18
+	hi TabLine guifg=#dcdcdc guibg=#4a4642 gui=none ctermfg=251 ctermbg=237
+	hi TabLineFill guifg=#dcdcdc guibg=#4a4642 gui=none ctermfg=251 ctermbg=237
+	hi TabLineSel guifg=#4a4642 gui=none ctermfg=237
+	hi Tag guifg=#a25a09 ctermfg=94
+	hi Title guifg=#0b3fad gui=none ctermfg=18
+	hi Todo guifg=#4d4214 guibg=#fdfec9 ctermfg=52 ctermbg=229
+	hi Type guifg=#bd3b09 gui=none ctermfg=124
+	hi Underlined guifg=#0c6cc0 ctermfg=25
+	hi VertSplit guifg=#4a4642 guibg=#4a4642 gui=none ctermfg=237 ctermbg=237
+	hi Visual guibg=#cce0ef ctermbg=153
+	hi WarningMsg guifg=#ea6042 ctermfg=166
+	hi WildMenu guifg=#2e2e2e guibg=#f0f0e5 gui=none ctermfg=234 ctermbg=255 cterm=none
 else
-	hi Normal ctermfg=255 guifg=#dadad5
-	hi Normal ctermbg=234 guibg=#121713
-	hi Normal cterm=none gui=none
-	hi ColorColumn ctermbg=235 guibg=#262f21
-	hi Comment ctermfg=241 guifg=#707073
-	hi Constant ctermfg=66 guifg=#70a395
-	hi Cursor ctermbg=172 guibg=#f39812
-	hi CursorColumn ctermbg=235 guibg=#23343d
-	hi CursorIM ctermbg=65 guibg=#4a9f68
-	hi CursorLine ctermbg=24 guibg=#23343d
-	hi CursorLine cterm=none gui=none
-	hi CursorLineNr ctermfg=66 guifg=#7c8884
-	hi CursorLineNr ctermbg=235 guibg=#23343d
-	hi CursorLineNr cterm=none gui=none
-	hi DiffAdd ctermfg=109 guifg=#a0cab0
-	hi DiffAdd ctermbg=233 guibg=#121713
-	hi DiffChange ctermfg=187 guifg=#fdfec9
-	hi DiffChange ctermbg=233 guibg=#121713
-	hi DiffDelete ctermfg=174 guifg=#ff8485
-	hi DiffDelete ctermbg=233 guibg=#121713
-	hi DiffText ctermfg=101 guifg=#a7a053
-	hi DiffText ctermbg=233 guibg=#121713
-	hi Directory ctermfg=68 guifg=#6aaaea
-	hi Error ctermfg=174 guifg=#ff8485
-	hi Error ctermbg=234 guibg=#121713
-	hi ErrorMsg ctermfg=174 guifg=#ff8485
-	hi ErrorMsg ctermbg=234 guibg=#121713
-	hi FoldColumn ctermfg=109 guifg=#a0cab0
-	hi FoldColumn ctermbg=236 guibg=#303a3b
-	hi Folded ctermfg=109 guifg=#a0cab0
-	hi Folded ctermbg=236 guibg=#303a3b
-	hi Function ctermfg=168 guifg=#d789c8
-	hi Identifier ctermfg=102 guifg=#91a8a5
-	hi Ignore ctermfg=240 guifg=#666666
-	hi IncSearch ctermfg=251 guifg=#dadad5
-	hi IncSearch ctermbg=162 guibg=#d51487
-	hi IncSearch cterm=none gui=none
-	hi LineNr ctermfg=66 guifg=#7c8884
-	hi LineNr ctermbg=234 guibg=#132423
-	hi MatchParen ctermfg=251 guifg=#dadad5
-	hi MatchParen ctermbg=30 guibg=#088b8c
-	hi ModeMsg ctermfg=67 guifg=#6badd1
-	hi MoreMsg ctermfg=108 guifg=#add581
-	hi NonText ctermfg=61 guifg=#7878ba
-	hi NonText cterm=none gui=none
-	hi Operator ctermfg=103 guifg=#8d89c7
-	hi Pmenu ctermfg=251 guifg=#dadad5
-	hi Pmenu ctermbg=237 guibg=#292c2f
-	hi PmenuSbar ctermfg=251 guifg=#dadad5
-	hi PmenuSbar ctermbg=237 guibg=#292c2f
-	hi PmenuSel ctermfg=251 guifg=#dadad5
-	hi PmenuSel ctermbg=162 guibg=#d51487
-	hi PmenuSel cterm=none gui=none
-	hi PmenuThumb ctermfg=251 guifg=#dadad5
-	hi PmenuThumb ctermbg=162 guibg=#d51487
-	hi PmenuThumb cterm=none gui=none
-	hi PreProc ctermfg=103 guifg=#8d89c7
-	hi Question ctermfg=30 guifg=#00a0a0
-	hi Search ctermfg=233 guifg=#121713
-	hi Search ctermbg=142 guibg=#c9c73c
-	hi SignColumn ctermfg=66 guifg=#7c8884
-	hi SignColumn ctermbg=234 guibg=#132423
-	hi Special ctermfg=101 guifg=#a7a053
-	hi SpecialKey ctermfg=59 guifg=#3a4857
-	hi SpellBad ctermfg=174 guisp=#ff8485 cterm=underline gui=undercurl
-	hi SpellBad ctermbg=233 guibg=#121713
-	hi SpellCap ctermfg=101 guisp=#a7a053 cterm=underline gui=undercurl
-	hi SpellCap ctermbg=233 guibg=#121713
-	hi SpellLocal ctermfg=187 guisp=#fdfec9 cterm=underline gui=undercurl
-	hi SpellLocal ctermbg=233 guibg=#121713
-	hi SpellRare ctermfg=109 guisp=#a0cab0 cterm=underline gui=undercurl
-	hi SpellRare ctermbg=233 guibg=#121713
-	hi Statement ctermfg=109 guifg=#91b5d4
-	hi Statement cterm=none gui=none
-	hi StatusLine ctermfg=247 guifg=#b2b5b2
-	hi StatusLine ctermbg=237 guibg=#292c2f
-	hi StatusLine cterm=none gui=none
-	hi StatusLineNC ctermfg=235 guifg=#727572
-	hi StatusLineNC ctermbg=232 guibg=#020508
-	hi StatusLineNC cterm=none gui=italic
-	hi String ctermfg=101 guifg=#a7a053
-	hi TabLine ctermfg=247 guifg=#b2b5b2
-	hi TabLine ctermbg=237 guibg=#292c2f
-	hi TabLine cterm=none gui=none
-	hi TabLineFill ctermfg=247 guifg=#b2b5b2
-	hi TabLineFill ctermbg=237 guibg=#292c2f
-	hi TabLineFill cterm=none gui=none
-	hi TabLineSel ctermfg=139 guifg=#d789c8
-	hi TabLineSel cterm=none gui=none
-	hi Tag ctermfg=137 guifg=#d38d6b
-	hi Title ctermfg=101 guifg=#a7a053
-	hi Title cterm=none gui=none
-	hi Todo ctermfg=187 guifg=#fdfec9
-	hi Todo ctermbg=234 guibg=#4d4214
-	hi Type ctermfg=67 guifg=#5f94ca
-	hi Type cterm=none gui=none
-	hi Underlined ctermfg=109 guifg=#91b5d4
-	hi VertSplit ctermfg=237 guifg=#292c2f
-	hi VertSplit ctermbg=237 guibg=#292c2f
-	hi VertSplit cterm=none gui=none
-	hi Visual ctermbg=24 guibg=#23343d
-	hi WarningMsg ctermfg=144 guifg=#e0b088
-	hi WildMenu ctermfg=255 guifg=#dadad5
-	hi WildMenu ctermbg=234 guibg=#121713
-	hi WildMenu cterm=none gui=none
+	hi Normal guifg=#dadad5 guibg=#121713 gui=none ctermfg=255 ctermbg=234 cterm=none
+	hi ColorColumn guibg=#262f21 ctermbg=235
+	hi Comment guifg=#707073 ctermfg=241
+	hi Constant guifg=#70a395 ctermfg=66
+	hi Cursor guibg=#f39812 ctermbg=172
+	hi CursorColumn guibg=#23343d ctermbg=235
+	hi CursorIM guibg=#4a9f68 ctermbg=65
+	hi CursorLine guibg=#23343d gui=none ctermbg=24 cterm=none
+	hi CursorLineNr guifg=#7c8884 guibg=#23343d gui=none ctermfg=66 ctermbg=235
+	hi DiffAdd guibg=#013a06 gui=none ctermfg=71 ctermbg=16
+	hi DiffChange guibg=#4a4707 ctermfg=178 ctermbg=235
+	hi DiffDelete guifg=#491008 guibg=#491008 ctermfg=237 ctermbg=237
+	hi DiffText guifg=#fefd03 guibg=#7b7b00 ctermfg=226 ctermbg=58
+	hi Directory guifg=#6aaaea ctermfg=68
+	hi Error guifg=#ff8485 guibg=#121713 ctermfg=174 ctermbg=234
+	hi ErrorMsg guifg=#ff8485 guibg=#121713 ctermfg=174 ctermbg=234
+	hi FoldColumn guifg=#a0cab0 guibg=#303a3b ctermfg=109 ctermbg=236
+	hi Folded guifg=#a0cab0 guibg=#303a3b ctermfg=109 ctermbg=236
+	hi Function guifg=#d789c8 ctermfg=168
+	hi Identifier guifg=#91a8a5 ctermfg=102
+	hi Ignore guifg=#666666 ctermfg=240
+	hi IncSearch guifg=#dadad5 guibg=#d51487 gui=none ctermfg=251 ctermbg=162
+	hi LineNr guifg=#7c8884 guibg=#132423 ctermfg=66 ctermbg=234
+	hi MatchParen guifg=#dadad5 guibg=#088b8c ctermfg=251 ctermbg=30
+	hi ModeMsg guifg=#6badd1 ctermfg=67
+	hi MoreMsg guifg=#add581 ctermfg=108
+	hi NonText guifg=#7878ba gui=none ctermfg=61
+	hi Operator guifg=#8d89c7 ctermfg=103
+	hi Pmenu guifg=#dadad5 guibg=#292c2f ctermfg=251 ctermbg=237
+	hi PmenuSbar guifg=#dadad5 guibg=#292c2f ctermfg=251 ctermbg=237
+	hi PmenuSel guifg=#dadad5 guibg=#d51487 gui=none ctermfg=251 ctermbg=162
+	hi PmenuThumb guifg=#dadad5 guibg=#d51487 gui=none ctermfg=251 ctermbg=162
+	hi PreProc guifg=#8d89c7 ctermfg=103
+	hi Question guifg=#00a0a0 ctermfg=30
+	hi Search guifg=#121713 guibg=#c9c73c ctermfg=233 ctermbg=142
+	hi SignColumn guifg=#7c8884 guibg=#132423 ctermfg=66 ctermbg=234
+	hi Special guifg=#a7a053 ctermfg=101
+	hi SpecialKey guifg=#3a4857 ctermfg=59
+	hi SpellBad guifg=#ff8485 guibg=#121713 gui=undercurl ctermfg=174 ctermbg=233 guisp=#ff8485 cterm=underline
+	hi SpellCap guifg=#a7a053 guibg=#121713 gui=undercurl ctermfg=101 ctermbg=233 guisp=#a7a053 cterm=underline
+	hi SpellLocal guifg=#fdfec9 guibg=#121713 gui=undercurl ctermfg=187 ctermbg=233 guisp=#fdfec9 cterm=underline
+	hi SpellRare guifg=#a0cab0 guibg=#121713 gui=undercurl ctermfg=109 ctermbg=233 guisp=#a0cab0 cterm=underline
+	hi Statement guifg=#91b5d4 gui=none ctermfg=109
+	hi StatusLine guifg=#b2b5b2 guibg=#292c2f gui=none ctermfg=247 ctermbg=237
+	hi StatusLineNC guifg=#727572 guibg=#020508 gui=italic ctermfg=235 ctermbg=232 cterm=none
+	hi String guifg=#a7a053 ctermfg=101
+	hi TabLine guifg=#b2b5b2 guibg=#292c2f gui=none ctermfg=247 ctermbg=237
+	hi TabLineFill guifg=#b2b5b2 guibg=#292c2f gui=none ctermfg=247 ctermbg=237
+	hi TabLineSel guifg=#d789c8 gui=none ctermfg=139
+	hi Tag guifg=#d38d6b ctermfg=137
+	hi Title guifg=#a7a053 gui=none ctermfg=101
+	hi Todo guifg=#fdfec9 guibg=#4d4214 ctermfg=187 ctermbg=234
+	hi Type guifg=#5f94ca gui=none ctermfg=67
+	hi Underlined guifg=#91b5d4 ctermfg=109
+	hi VertSplit guifg=#292c2f guibg=#292c2f gui=none ctermfg=237 ctermbg=237
+	hi Visual guibg=#23343d ctermbg=24
+	hi WarningMsg guifg=#e0b088 ctermfg=144
+	hi WildMenu guifg=#dadad5 guibg=#121713 gui=none ctermfg=255 ctermbg=234 cterm=none
 endif
