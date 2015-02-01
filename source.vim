@@ -63,32 +63,37 @@ function! s:set_highlight(group)
 	let term_bg = s:get(args, 4, '')
 	let term_attr = s:get(args, 5, '')
 
+	let cmd_args = [
+	\	s:maybe(' guifg=#', fg),
+	\	s:maybe(' guibg=#', bg),
+	\	s:maybe(' gui=', attr),
+	\	s:maybe(' ctermfg=', s:or(term_fg, s:tco(fg))),
+	\	s:maybe(' ctermbg=', s:or(term_bg, s:tco(bg))),
+	\	s:maybe(' cterm=', term_attr),
+	\]
+
 	if attr == 'undercurl'
-		call add(s:output, "\thi " . a:group
-		\	. ' ctermfg=' . s:tco(fg)
-		\	. ' guisp=#' . fg
-		\	. ' cterm=underline gui=' . attr)
-		call s:apply(a:group, 'bg', bg, term_bg)
-		return
+		call add(cmd_args, s:maybe(' guisp=#', fg))
+		call add(cmd_args, s:maybe(' cterm=', s:or(term_attr, 'underline')))
 	endif
 
-	call s:apply(a:group, 'fg', fg, term_fg)
-	call s:apply(a:group, 'bg', bg, term_bg)
-	call s:apply(a:group, '', attr, term_attr)
+	call add(s:output, "\thi " . a:group . join(cmd_args, ''))
 endfunction
 
 
-function! s:apply(group, key, val, term_val)
+function! s:maybe(key_eq, val)
 	if empty(a:val)
-		return
+		return ''
 	endif
-	let term_val =
-	\	!empty(a:term_val) ? a:term_val :
-	\	empty(a:key) ? a:val :s:tco(a:val)
-	let gui_val = empty(a:key) ? a:val : ('#' . a:val)
-	call add(s:output, "\thi " . a:group
-	\	. ' cterm' . a:key . '=' . term_val
-	\	. ' gui' . a:key . '=' . gui_val)
+	return a:key_eq . a:val
+endfunction
+
+
+function! s:or(val, def_val)
+	if !empty(a:val)
+		return a:val
+	endif
+	return a:def_val
 endfunction
 
 
@@ -116,6 +121,7 @@ function! s:get(args, index, default, ...)
 	return val
 endfunction
 
+
 function! s:get_val(args, index, default)
 	let val = get(a:args, a:index, a:default)
 	if val == s:base
@@ -127,14 +133,19 @@ function! s:get_val(args, index, default)
 	return a:default
 endfunction
 
+
 " Terminal COlor
 function! s:tco(rgb)
+	if empty(a:rgb)
+		return ''
+	endif
 	let r = ('0x' . strpart(a:rgb, 0, 2)) + 0
 	let g = ('0x' . strpart(a:rgb, 2, 2)) + 0
 	let b = ('0x' . strpart(a:rgb, 4, 2)) + 0
 	let c = s:rgb2tco(r, g, b)
 	return c
 endfunction
+
 
 function! s:rgb2tco(r, g, b)
 	if s:rgb_is_gray(a:r, a:g, a:b)
@@ -143,6 +154,7 @@ function! s:rgb2tco(r, g, b)
 		return s:rgb2color(a:r, a:g, a:b)
 	endif
 endfunction
+
 
 function! s:rgb2color(r, g, b)
 	let r = float2nr(5.0 * a:r / 255.0 - 0.45)
@@ -155,12 +167,14 @@ function! s:rgb2color(r, g, b)
 	return c
 endfunction
 
+
 function! s:rgb2gray(r, g, b)
 	let gray = float2nr(23.0 * (a:r + a:g + a:b) / 3.0 / 255.0 - 0.45)
 	let gray = (gray < 0) ? 0 : gray
 	let gray += 232
 	return gray
 endfunction
+
 
 function! s:rgb_is_gray(r, g, b)
 	let r = a:r * a:r
