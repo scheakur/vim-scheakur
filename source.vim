@@ -4,6 +4,14 @@ set nocompatible
 
 let s:output = []
 
+function! s:print(text)
+	call add(s:output, a:text)
+endfunction
+
+function! s:writefile(file)
+	call writefile(s:output, a:file)
+endfunction
+
 " constants
 let s:base = '_base_'
 " highlighting properties
@@ -77,7 +85,7 @@ function! s:set_highlight(group)
 		call add(cmd_args, s:maybe(' cterm=', s:or(term_attr, 'underline')))
 	endif
 
-	call add(s:output, "\thi " . a:group . join(cmd_args, ''))
+	call s:print("\thi " . a:group . join(cmd_args, ''))
 endfunction
 
 
@@ -325,24 +333,24 @@ endfunction " }}}
 
 
 " Make colorscheme file {{{
-call add(s:output, '" This file is built by ../source.vim.')
-call add(s:output, '" Do not modify this file directly.')
-call add(s:output, 'highlight clear')
-call add(s:output, "if exists('syntax_on')")
-call add(s:output, "\tsyntax reset")
-call add(s:output, 'endif')
-call add(s:output, '')
-call add(s:output, "let g:colors_name = 'scheakur'")
-call add(s:output, '')
-call add(s:output, "if &background == 'light'")
+call s:print('" This file is built by ../source.vim.')
+call s:print('" Do not modify this file directly.')
+call s:print('highlight clear')
+call s:print("if exists('syntax_on')")
+call s:print("\tsyntax reset")
+call s:print('endif')
+call s:print('')
+call s:print("let g:colors_name = 'scheakur'")
+call s:print('')
+call s:print("if &background == 'light'")
 call s:highlight('light')
-call add(s:output, 'else')
+call s:print('else')
 " reset highlighting properties
 let s:props = {}
 call s:highlight('dark')
-call add(s:output, 'endif')
+call s:print('endif')
 
-call writefile(s:output, 'colors/scheakur.vim')
+call s:writefile('colors/scheakur.vim')
 " }}}
 
 
