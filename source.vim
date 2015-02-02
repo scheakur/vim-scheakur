@@ -324,7 +324,7 @@ endfunction " }}}
 " }}}
 
 
-" Make colorscheme file
+" Make colorscheme file {{{
 call add(s:output, '" This file is built by ../source.vim.')
 call add(s:output, '" Do not modify this file directly.')
 call add(s:output, 'highlight clear')
@@ -343,6 +343,8 @@ call s:highlight('dark')
 call add(s:output, 'endif')
 
 call writefile(s:output, 'colors/scheakur.vim')
+" }}}
+
 
 " cleanup {{{
 " TODO need ?
@@ -364,3 +366,5 @@ unlet s:base
 unlet s:props
 unlet s:output
 " }}}
+
+" vim: set noexpandtab foldmethod=marker :
