@@ -328,6 +328,7 @@ function! s:set_common_colors() " {{{
 	call s:hi('Operator', '@PreProc')
 	call s:hi('Underlined', '@Statement')
 	call s:copy('WildMenu', '@Normal')
+	call s:hi('Conceal', '@Statement', b, b)
 endfunction " }}}
 " }}}
 

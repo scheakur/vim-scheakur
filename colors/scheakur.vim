@@ -11,6 +11,7 @@ if &background == 'light'
 	hi Normal guifg=#2e2e2e guibg=#f0f0e5 gui=none ctermfg=234 ctermbg=255 cterm=none
 	hi ColorColumn guibg=#dfd6d1 ctermbg=145
 	hi Comment guifg=#506a78 ctermfg=59
+	hi Conceal guifg=#0c6cc0 guibg=#f0f0e5 gui=none ctermfg=25 ctermbg=188
 	hi Constant guifg=#1a7931 ctermfg=22
 	hi Cursor guibg=#f39812 ctermbg=172
 	hi CursorColumn guibg=#cce0ef ctermbg=146
@@ -70,6 +71,7 @@ else
 	hi Normal guifg=#dadad5 guibg=#121713 gui=none ctermfg=255 ctermbg=234 cterm=none
 	hi ColorColumn guibg=#262f21 ctermbg=235
 	hi Comment guifg=#707073 ctermfg=241
+	hi Conceal guifg=#91b5d4 guibg=#121713 gui=none ctermfg=109 ctermbg=233
 	hi Constant guifg=#70a395 ctermfg=66
 	hi Cursor guibg=#f39812 ctermbg=172
 	hi CursorColumn guibg=#23343d ctermbg=235
