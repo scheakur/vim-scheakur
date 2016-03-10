@@ -230,11 +230,11 @@ function! s:set_light_colors() " {{{
 	call s:hi('ColorColumn', _, '#dfd6d1')
 
 	call s:hi('Constant', '#1a7931')
-	call s:hi('Identifier', '#44756f')
+	call s:hi('Identifier', '#bd3b09')
 	call s:hi('Statement', '#0c6cc0', _, b)
 	call s:hi('Special', '#1041a8')
 	call s:hi('PreProc', '#6b118a')
-	call s:hi('Type', '#bd3b09', _, b)
+	call s:hi('Type', '#44756f', _, b)
 	call s:hi('Function', '#cb1265')
 	call s:hi('MatchParen', '#0e8ed3', '#dbf2ff')
 	call s:hi('Ignore', '#666666')
