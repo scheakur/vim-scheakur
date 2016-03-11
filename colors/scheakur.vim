@@ -12,7 +12,7 @@ if &background == 'light'
 	hi ColorColumn guibg=#dfd6d1 ctermbg=145
 	hi Comment guifg=#878965 ctermfg=101
 	hi Conceal guifg=#0c6cc0 guibg=#f0f0e5 gui=none ctermfg=25 ctermbg=188
-	hi Constant guifg=#1a7931 ctermfg=22
+	hi Constant guifg=#00695c ctermfg=23
 	hi Cursor guibg=#f39812 ctermbg=172
 	hi CursorColumn guibg=#cce0ef ctermbg=146
 	hi CursorIM guibg=#4a9f68 ctermbg=65
@@ -28,7 +28,7 @@ if &background == 'light'
 	hi FoldColumn guifg=#04530d guibg=#d0ead0 ctermfg=22 ctermbg=151
 	hi Folded guifg=#04530d guibg=#d0ead0 ctermfg=22 ctermbg=151
 	hi Function guifg=#cb1265 ctermfg=125
-	hi Identifier guifg=#bd3b09 ctermfg=124
+	hi Identifier guifg=#546e7a ctermfg=59
 	hi Ignore guifg=#666666 ctermfg=240
 	hi IncSearch guifg=#2e2e2e guibg=#f4b3c2 gui=none ctermfg=234 ctermbg=218
 	hi LineNr guifg=#567686 guibg=#e2e2d0 ctermfg=236 ctermbg=145
@@ -61,7 +61,7 @@ if &background == 'light'
 	hi Tag guifg=#a25a09 ctermfg=94
 	hi Title guifg=#1041a8 gui=none ctermfg=18
 	hi Todo guifg=#4d4214 guibg=#fdfec9 ctermfg=52 ctermbg=229
-	hi Type guifg=#44756f gui=none ctermfg=23
+	hi Type guifg=#00695c gui=none ctermfg=23
 	hi Underlined guifg=#0c6cc0 ctermfg=25
 	hi VertSplit guifg=#4a4642 guibg=#4a4642 gui=none ctermfg=237 ctermbg=237
 	hi Visual guibg=#cce0ef ctermbg=153
